@@ -1,10 +1,14 @@
 import { useState } from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { Button, SafeAreaView, StyleSheet, View } from 'react-native'
 import FormField from '../components/ui/FormField'
 
 export default function LoginScreen () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const handleSubmit = () => {
+    console.log(email, password)
+  }
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -20,6 +24,7 @@ export default function LoginScreen () {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
+        <Button title='Ingresar' onPress={handleSubmit} />
       </View>
     </SafeAreaView>
   )
