@@ -41,7 +41,7 @@ git clone https://github.com/soyluisarrieta/babysoft-app.git
     Para ejecutar el entorno de desarrollo de React Native con Expo, utiliza:
 
     ```bash
-    expo start
+    npm start
     ```
 
 ### 🔸 Pasos para configurar e iniciar la API de Laravel Breeze
