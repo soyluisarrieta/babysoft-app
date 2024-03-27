@@ -19,7 +19,11 @@
     "typescript": "^5.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "standard": "^17.1.0"
   },
-  "private": true
+  "private": true,
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
+  }
 }
