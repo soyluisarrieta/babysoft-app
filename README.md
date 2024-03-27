@@ -8,15 +8,17 @@ Este proyecto presenta la implementación de un sistema de inicio de sesión (in
 
 1. Para comenzar, asegúrate de tener instalado [NodeJS](https://nodejs.org/en/download) para ejecutar el entorno de desarrollo.
 
-2. Asegúrate tambien de tener instalada o actualizada la linea de comandos de Expo CLI usando:
+2. Verifica también que tengas instalada o actualizada la línea de comandos de Expo CLI mediante el siguiente comando:
 
     ```bash
     npm i -g expo-cli
     ```
 
-3. Para Laravel se requiere tener instalado [composer](https://getcomposer.org/download/).
+3. Asegúrate de tener la aplicación Expo instalada en tu dispositivo móvil desde la [Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent&pcampaignid=web_share) o desde la [Apps store](https://apps.apple.com/us/app/expo-go/id982107779) para poder previsualizar el servidor en tu celular.
 
-4. Opcionalmente tener instalado [Git](https://git-scm.com/downloads) para clonar el repositorio.
+4. Para Laravel se requiere tener instalado [composer](https://getcomposer.org/download/).
+
+5. Opcionalmente tener instalado [Git](https://git-scm.com/downloads) para clonar el repositorio.
 
 ## 🚀 Empezar con el proyecto
 
