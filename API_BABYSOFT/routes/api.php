@@ -5,8 +5,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(["middleware" => ["auth:sanctum"]], function(){
+  Route::get('/user', function (Request $request) {
+      return $request->user();
+  });
+
+  Route::post('/test-csrf', fn () => [1,2,3]);
+
+  Route::post('/logout', function (Request $request){
+    $request->user()->currentAccessToken()->delete();
+    return response()->noContent();
+  });
 });
 
 Route::post("/login", function (Request $request){
