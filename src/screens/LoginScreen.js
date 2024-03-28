@@ -11,13 +11,19 @@ export default function LoginScreen () {
   const handleSubmit = async () => {
     setErrors({})
     try {
-      await axios.post('http://192.168.1.105:8000/api/login', {
+      const { data } = await axios.post('http://192.168.1.105:8000/api/login', {
         email,
         password,
         device_name: `${Platform.OS} ${Platform.Version}`
       }, {
         headers: { Accept: 'application/json' }
       })
+
+      const { data: profile } = await axios.get('http://192.168.1.105:8000/api/user', {
+        headers: { Accept: 'application/json', Authorization: `Bearer ${data.token}` }
+      })
+
+      console.log(profile)
     } catch (e) {
       console.warn(e.response)
       if (e.response?.status === 422) {
