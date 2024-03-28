@@ -49,11 +49,6 @@ export default function LoginScreen ({ navigation }) {
           errors={errors.password}
         />
         <Button title='Ingresar' onPress={handleSubmit} />
-        <Button
-          title='Registrarse' onPress={() => {
-            navigation.navigate('Crear cuenta')
-          }}
-        />
       </View>
     </SafeAreaView>
   )

@@ -7,6 +7,7 @@ import { profileService } from './src/services/AuthService'
 import AuthContext from './src/contexts/AuthContext'
 import SplashScreen from './src/screens/SplashScreen'
 import RegisterScreen from './src/screens/RegisterScreen'
+import HomeScreen from './src/screens/HomeScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -41,12 +42,13 @@ export default function App () {
           {profile
             ? (
               <>
-                <Stack.Screen name='Products' component={ProductsScreen} />
+                <Stack.Screen name='Productos' component={ProductsScreen} />
               </>
               )
             : (
               <>
-                <Stack.Screen name='Login' component={LoginScreen} />
+                <Stack.Screen name='Inicio' component={HomeScreen} />
+                <Stack.Screen name='Ingresar' component={LoginScreen} />
                 <Stack.Screen name='Crear cuenta' component={RegisterScreen} />
               </>
               )}
