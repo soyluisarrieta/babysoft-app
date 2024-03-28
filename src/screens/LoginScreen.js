@@ -4,7 +4,7 @@ import FormField from '../components/ui/FormField'
 import { loginService, profileService } from '../services/AuthService'
 import AuthContext from '../contexts/AuthContext'
 
-export default function LoginScreen () {
+export default function LoginScreen ({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
@@ -22,9 +22,8 @@ export default function LoginScreen () {
 
       const profile = await profileService()
       setProfile(profile)
-      console.log(profile)
     } catch (e) {
-      console.warn(e.response)
+      // console.warn(e.response)
       if (e.response?.status === 422) {
         setErrors(e.response.data.errors)
       }
@@ -48,6 +47,11 @@ export default function LoginScreen () {
           errors={errors.password}
         />
         <Button title='Ingresar' onPress={handleSubmit} />
+        <Button
+          title='Registrarse' onPress={() => {
+            navigation.navigate('Crear cuenta')
+          }}
+        />
       </View>
     </SafeAreaView>
   )
