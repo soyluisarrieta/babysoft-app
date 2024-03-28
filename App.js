@@ -43,7 +43,8 @@ export default function App () {
           screenOptions={{
             headerMode: 'screen',
             headerTitleAlign: 'center',
-            headerShadowVisible: false
+            headerShadowVisible: false,
+            animation: 'ios'
           }}
         >
           {profile
@@ -54,7 +55,7 @@ export default function App () {
               )
             : (
               <>
-                <Stack.Screen name='home' component={HomeScreen} options={{ title: '' }} />
+                <Stack.Screen name='home' component={HomeScreen} options={{ headerShown: false }} />
                 <Stack.Screen name='login' component={LoginScreen} options={{ title: 'Ingresar' }} />
                 <Stack.Screen name='register' component={RegisterScreen} options={{ title: 'Crear cuenta' }} />
               </>
