@@ -14,11 +14,11 @@ const Stack = createNativeStackNavigator()
 
 export default function App () {
   const [fontsLoaded] = useFonts({
-    'primary-light': require('./assets/fonts/Quicksand-Light.ttf'),
-    'primary-regular': require('./assets/fonts/Quicksand-Regular.ttf'),
-    'primary-medium': require('./assets/fonts/Quicksand-Medium.ttf'),
-    'primary-semibold': require('./assets/fonts/Quicksand-SemiBold.ttf'),
-    'primary-bold': require('./assets/fonts/Quicksand-Bold.ttf')
+    'Quicksand-light': require('./assets/fonts/Quicksand-Light.ttf'),
+    'Quicksand-regular': require('./assets/fonts/Quicksand-Regular.ttf'),
+    'Quicksand-medium': require('./assets/fonts/Quicksand-Medium.ttf'),
+    'Quicksand-semibold': require('./assets/fonts/Quicksand-SemiBold.ttf'),
+    'Quicksand-bold': require('./assets/fonts/Quicksand-Bold.ttf')
   })
 
   const [profile, setProfile] = useState()
