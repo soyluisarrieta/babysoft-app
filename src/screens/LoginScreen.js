@@ -6,8 +6,10 @@ import axios from 'axios'
 export default function LoginScreen () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState({})
 
   const handleSubmit = async () => {
+    setErrors({})
     try {
       await axios.post('http://192.168.1.105:8000/api/login', {
         email,
@@ -16,8 +18,11 @@ export default function LoginScreen () {
       }, {
         headers: { Accept: 'application/json' }
       })
-    } catch (error) {
-      console.warn(error.response)
+    } catch (e) {
+      console.warn(e.response)
+      if (e.response?.status === 422) {
+        setErrors(e.response.data.errors)
+      }
     }
   }
 
@@ -28,12 +33,14 @@ export default function LoginScreen () {
           label='Correo electrónico'
           value={email}
           onChangeText={(text) => setEmail(text)}
+          errors={errors.email}
         />
         <FormField
           label='Contraseña'
           secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
+          errors={errors.password}
         />
         <Button title='Ingresar' onPress={handleSubmit} />
       </View>
