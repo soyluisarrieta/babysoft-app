@@ -13,3 +13,11 @@ export async function profileService () {
   })
   return profile
 }
+
+export async function logoutService () {
+  const token = await getToken()
+  await axios.post('/logout', {}, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+  await setToken(null)
+}
