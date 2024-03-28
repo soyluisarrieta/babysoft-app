@@ -8,10 +8,19 @@ import AuthContext from './src/contexts/AuthContext'
 import SplashScreen from './src/screens/SplashScreen'
 import RegisterScreen from './src/screens/RegisterScreen'
 import HomeScreen from './src/screens/HomeScreen'
+import { useFonts } from 'expo-font'
 
 const Stack = createNativeStackNavigator()
 
 export default function App () {
+  const [fontsLoaded] = useFonts({
+    'primary-light': require('./assets/fonts/Quicksand-Light.ttf'),
+    'primary-regular': require('./assets/fonts/Quicksand-Regular.ttf'),
+    'primary-medium': require('./assets/fonts/Quicksand-Medium.ttf'),
+    'primary-semibold': require('./assets/fonts/Quicksand-SemiBold.ttf'),
+    'primary-bold': require('./assets/fonts/Quicksand-Bold.ttf')
+  })
+
   const [profile, setProfile] = useState()
   const [status, setStatus] = useState('loading')
 
@@ -31,7 +40,7 @@ export default function App () {
     runEffect()
   }, [])
 
-  if (status === 'loading') {
+  if (status === 'loading' || !fontsLoaded) {
     return <SplashScreen />
   }
 
