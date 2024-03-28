@@ -19,7 +19,7 @@ export default function App () {
         const profile = await profileService()
         setProfile(profile)
       } catch (e) {
-        console.warn('Failed to load user', e)
+        // console.warn('Failed to load user', e)
       }
 
       setStatus('idle')

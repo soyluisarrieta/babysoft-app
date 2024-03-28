@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Button, Platform, SafeAreaView, StyleSheet, View } from 'react-native'
 import FormField from '../components/ui/FormField'
 import { loginService, profileService } from '../services/AuthService'
+import AuthContext from '../contexts/AuthContext'
 
 export default function LoginScreen () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
+
+  const { setProfile } = useContext(AuthContext)
 
   const handleSubmit = async () => {
     setErrors({})
@@ -18,6 +21,7 @@ export default function LoginScreen () {
       })
 
       const profile = await profileService()
+      setProfile(profile)
       console.log(profile)
     } catch (e) {
       console.warn(e.response)
