@@ -5,11 +5,13 @@ import LoginScreen from './src/screens/LoginScreen'
 import ProductsScreen from './src/screens/ProductsScreen'
 import { profileService } from './src/services/AuthService'
 import AuthContext from './src/contexts/AuthContext'
+import SplashScreen from './src/screens/SplashScreen'
 
 const Stack = createNativeStackNavigator()
 
 export default function App () {
   const [profile, setProfile] = useState()
+  const [status, setStatus] = useState('loading')
 
   useEffect(() => {
     async function runEffect () {
@@ -19,10 +21,16 @@ export default function App () {
       } catch (e) {
         console.warn('Failed to load user', e)
       }
+
+      setStatus('idle')
     }
 
     runEffect()
   }, [])
+
+  if (status === 'loading') {
+    return <SplashScreen />
+  }
 
   return (
     <AuthContext.Provider value={{ profile, setProfile }}>
