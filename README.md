@@ -1,6 +1,6 @@
 # BabySoft App  🍼📱
 
-![BabySoft logo](./assets/babysoft-logo.webp)
+![BabySoft logo](./assets/babysoft-logo.png)
 
 Este proyecto presenta la implementación de un sistema de inicio de sesión (ingreso/registro) con diversas vistas y rutas protegidas. Además, incluye un completo CRUD de productos categorizados, utilizando React Native con [Expo](https://expo.dev/) y [Laravel Breeze API](https://laravel.com/docs/11.x/starter-kits#laravel-breeze).
 
