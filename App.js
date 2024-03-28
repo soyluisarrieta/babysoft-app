@@ -38,18 +38,25 @@ export default function App () {
   return (
     <AuthContext.Provider value={{ profile, setProfile }}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          initialRouteName='home'
+          screenOptions={{
+            headerMode: 'screen',
+            headerTitleAlign: 'center',
+            headerShadowVisible: false
+          }}
+        >
           {profile
             ? (
               <>
-                <Stack.Screen name='Productos' component={ProductsScreen} />
+                <Stack.Screen name='products' component={ProductsScreen} options={{ title: 'Productos' }} />
               </>
               )
             : (
               <>
-                <Stack.Screen name='Inicio' component={HomeScreen} />
-                <Stack.Screen name='Ingresar' component={LoginScreen} />
-                <Stack.Screen name='Crear cuenta' component={RegisterScreen} />
+                <Stack.Screen name='home' component={HomeScreen} options={{ title: '' }} />
+                <Stack.Screen name='login' component={LoginScreen} options={{ title: 'Ingresar' }} />
+                <Stack.Screen name='register' component={RegisterScreen} options={{ title: 'Crear cuenta' }} />
               </>
               )}
         </Stack.Navigator>
