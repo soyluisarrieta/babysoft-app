@@ -6,6 +6,7 @@ import ProductsScreen from './src/screens/ProductsScreen'
 import { profileService } from './src/services/AuthService'
 import AuthContext from './src/contexts/AuthContext'
 import SplashScreen from './src/screens/SplashScreen'
+import RegisterScreen from './src/screens/RegisterScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -45,6 +46,7 @@ export default function App () {
             : (
               <>
                 <Stack.Screen name='Login' component={LoginScreen} />
+                <Stack.Screen name='Crear cuenta' component={RegisterScreen} />
               </>
               )}
         </Stack.Navigator>

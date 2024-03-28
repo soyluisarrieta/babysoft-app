@@ -6,6 +6,11 @@ export async function loginService (credentials) {
   await setToken(data.token)
 }
 
+export async function registerService (registerInfo) {
+  const { data } = await axios.post('/register', registerInfo)
+  await setToken(data.token)
+}
+
 export async function profileService () {
   const { data: profile } = await axios.get('/user')
   return profile
