@@ -27,6 +27,8 @@ export default function LoginScreen ({ navigation }) {
       if (e.response?.status === 422) {
         setErrors(e.response.data.errors)
       }
+    } finally {
+      setPassword('')
     }
   }
 
