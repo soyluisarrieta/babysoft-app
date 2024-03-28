@@ -1,8 +1,9 @@
-import { Image, SafeAreaView, Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
+import MasterLayout from '../components/layouts/MasterLayout'
 
 export default function SplashScreen () {
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <MasterLayout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <View>
         <Image
           source={require('../../assets/babysoft-logo-circle.jpg')}
@@ -14,6 +15,6 @@ export default function SplashScreen () {
 
         <Text>Cargando...</Text>
       </View>
-    </SafeAreaView>
+    </MasterLayout>
   )
 }

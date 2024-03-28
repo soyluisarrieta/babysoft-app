@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react'
-import { Button, Platform, SafeAreaView, StyleSheet, View } from 'react-native'
+import { Button, Platform, StyleSheet, View } from 'react-native'
 import FormField from '../components/ui/FormField'
 import { profileService, registerService } from '../services/AuthService'
 import AuthContext from '../contexts/AuthContext'
+import MasterLayout from '../components/layouts/MasterLayout'
 
 export default function RegisterScreen ({ navigation }) {
   const [name, setName] = useState('')
@@ -39,7 +40,7 @@ export default function RegisterScreen ({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <MasterLayout>
       <View style={styles.container}>
         <FormField
           label='Nombre y apellido'
@@ -69,7 +70,7 @@ export default function RegisterScreen ({ navigation }) {
         />
         <Button title='Ingresar' onPress={onRegister} />
       </View>
-    </SafeAreaView>
+    </MasterLayout>
   )
 }
 

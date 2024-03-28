@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react'
-import { Button, Platform, SafeAreaView, StyleSheet, View } from 'react-native'
+import { Button, Platform, StyleSheet, View } from 'react-native'
 import FormField from '../components/ui/FormField'
 import { loginService, profileService } from '../services/AuthService'
 import AuthContext from '../contexts/AuthContext'
+import MasterLayout from '../components/layouts/MasterLayout'
 
 export default function LoginScreen ({ navigation }) {
   const [email, setEmail] = useState('')
@@ -33,7 +34,7 @@ export default function LoginScreen ({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <MasterLayout>
       <View style={styles.container}>
         <FormField
           label='Correo electrónico'
@@ -50,7 +51,7 @@ export default function LoginScreen ({ navigation }) {
         />
         <Button title='Ingresar' onPress={handleSubmit} />
       </View>
-    </SafeAreaView>
+    </MasterLayout>
   )
 }
 

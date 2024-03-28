@@ -1,7 +1,8 @@
 import { useContext } from 'react'
-import { Button, SafeAreaView, Text } from 'react-native'
+import { Button, Text } from 'react-native'
 import AuthContext from '../contexts/AuthContext'
 import { logoutService } from '../services/AuthService'
+import MasterLayout from '../components/layouts/MasterLayout'
 
 export default function ProductsScreen () {
   const { profile, setProfile } = useContext(AuthContext)
@@ -12,9 +13,9 @@ export default function ProductsScreen () {
   }
 
   return (
-    <SafeAreaView>
+    <MasterLayout>
       <Text>Bienvenido a Productos, {profile.name}</Text>
       <Button title='Cerrar sesión' onPress={handleLogout} />
-    </SafeAreaView>
+    </MasterLayout>
   )
 }
