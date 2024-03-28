@@ -21,6 +21,7 @@ export default function App () {
         setProfile(profile)
       } catch (e) {
         // console.warn('Failed to load user', e)
+        setProfile(null)
       }
 
       setStatus('idle')
