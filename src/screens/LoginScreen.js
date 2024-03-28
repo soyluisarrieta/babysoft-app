@@ -11,13 +11,13 @@ export default function LoginScreen () {
   const handleSubmit = async () => {
     setErrors({})
     try {
-      const token = await loginService({
+      await loginService({
         email,
         password,
         device_name: `${Platform.OS} ${Platform.Version}`
       })
 
-      const profile = await profileService(token)
+      const profile = await profileService()
       console.log(profile)
     } catch (e) {
       console.warn(e.response)
