@@ -92,8 +92,8 @@ git clone https://github.com/soyluisarrieta/babysoft-app.git
 
 ## 🧩 Características generales
 
-- [ ] Rutas públicas y privadas
-- [ ] Sistema de Login simple (Ingreso/Registro)
-- [ ] Autenticación y comunicación mediante CSRF con Token
+- [x] Rutas públicas y privadas
+- [x] Sistema de Login simple (Ingreso/Registro)
+- [x] Autenticación y comunicación mediante Tokens
 - [ ] CRUD de productos
 - [ ] CRUD de categorías
