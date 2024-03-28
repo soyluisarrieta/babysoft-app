@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Platform, SafeAreaView, StyleSheet, View } from 'react-native'
 import FormField from '../components/ui/FormField'
-import axios from '../utils/axios'
+import { loginService, profileService } from '../services/AuthService'
 
 export default function LoginScreen () {
   const [email, setEmail] = useState('')
@@ -11,16 +11,13 @@ export default function LoginScreen () {
   const handleSubmit = async () => {
     setErrors({})
     try {
-      const { data } = await axios.post('/login', {
+      const token = await loginService({
         email,
         password,
         device_name: `${Platform.OS} ${Platform.Version}`
       })
 
-      const { data: profile } = await axios.get('/user', {
-        headers: { Authorization: `Bearer ${data.token}` }
-      })
-
+      const profile = await profileService(token)
       console.log(profile)
     } catch (e) {
       console.warn(e.response)
