@@ -7,7 +7,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: null,
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -19,7 +19,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -31,7 +31,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: null,
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -43,7 +43,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: null,
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -55,7 +55,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -67,7 +67,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -79,7 +79,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -91,7 +91,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: null,
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -103,7 +103,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: null,
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -115,7 +115,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: null,
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -127,7 +127,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: null,
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -139,7 +139,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -151,7 +151,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -163,7 +163,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -175,7 +175,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -187,7 +187,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -199,7 +199,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -211,7 +211,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -223,7 +223,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   },
@@ -235,7 +235,7 @@ export const MOCK_PRODUCTS = [
     cantidad: 10,
     categoria: 'pijama',
     precio: 123000,
-    foto: 'product-placeholder.jpg',
+    foto: 'product-placeholder.png',
     fechaCreado: 1711722506,
     ultimaActualizacion: 1711722509
   }
