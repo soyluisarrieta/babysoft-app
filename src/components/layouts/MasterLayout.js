@@ -1,10 +1,12 @@
-import { SafeAreaView, StyleSheet } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native'
 import { COLORS } from '../../theme'
 
-export default function MasterLayout ({ style, children, ...rest }) {
+export default function MasterLayout ({ style, withoutScroll, children, ...rest }) {
   return (
     <SafeAreaView style={[styles.container, style]} {...rest}>
-      {children}
+      {withoutScroll
+        ? children
+        : <ScrollView>{children}</ScrollView>}
     </SafeAreaView>
   )
 }
