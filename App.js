@@ -9,6 +9,7 @@ import SplashScreen from './src/screens/SplashScreen'
 import RegisterScreen from './src/screens/RegisterScreen'
 import HomeScreen from './src/screens/HomeScreen'
 import { useFonts } from 'expo-font'
+import { COLORS, FONTS } from './src/theme'
 
 const Stack = createNativeStackNavigator()
 
@@ -53,6 +54,8 @@ export default function App () {
             headerMode: 'screen',
             headerTitleAlign: 'center',
             headerShadowVisible: false,
+            headerStyle: { backgroundColor: COLORS.white.hex },
+            headerTitleStyle: { fontFamily: FONTS.primary.bold, fontSize: 24 },
             animation: 'ios'
           }}
         >
