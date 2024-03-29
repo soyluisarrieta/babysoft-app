@@ -1,11 +1,13 @@
 import { useContext, useState } from 'react'
-import { Button, Platform, StyleSheet, View } from 'react-native'
+import { Image, Platform, StyleSheet, Text, View } from 'react-native'
 import FormField from '../components/ui/FormField'
 import { loginService, profileService } from '../services/AuthService'
 import AuthContext from '../contexts/AuthContext'
 import MasterLayout from '../components/layouts/MasterLayout'
+import Button from '../components/ui/Button'
+import { FONTS } from '../theme'
 
-export default function LoginScreen ({ navigation }) {
+export default function LoginScreen () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
@@ -36,6 +38,11 @@ export default function LoginScreen ({ navigation }) {
   return (
     <MasterLayout>
       <View style={styles.container}>
+        <Image
+          source={require('../../assets/login.png')}
+          style={styles.illustration}
+        />
+        <Text style={styles.paragraph}>Ingresa tu correo electrónico y contraseña para identificarte.</Text>
         <FormField
           label='Correo electrónico'
           value={email}
@@ -49,19 +56,25 @@ export default function LoginScreen ({ navigation }) {
           onChangeText={(text) => setPassword(text)}
           errors={errors.password}
         />
-        <Button title='Ingresar' onPress={handleSubmit} />
+        <Button variants='primary' onPress={handleSubmit} style={{ marginVertical: 20 }}>Iniciar sesión</Button>
       </View>
     </MasterLayout>
   )
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: '#fff',
-    flex: 1
-  },
   container: {
     padding: 20,
     rowGap: 16
+  },
+  illustration: {
+    height: 234,
+    marginBottom: 20,
+    alignSelf: 'center',
+    resizeMode: 'contain'
+  },
+  paragraph: {
+    fontFamily: FONTS.primary.regular,
+    fontSize: 16
   }
 })
