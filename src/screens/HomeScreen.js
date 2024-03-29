@@ -1,12 +1,11 @@
-import { Image, ImageBackground, StyleSheet, View } from 'react-native'
-import MasterLayout from '../components/layouts/MasterLayout'
+import { Image, ImageBackground, SafeAreaView, StyleSheet, View } from 'react-native'
 import Button from '../components/ui/Button'
 import { COLORS } from '../theme'
 import { rgba } from '../utils/helpers'
 
 export default function HomeScreen ({ navigation }) {
   return (
-    <MasterLayout>
+    <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
         source={require('../../assets/bg-home.jpg')}
         style={styles.backgroundImage}
@@ -31,7 +30,7 @@ export default function HomeScreen ({ navigation }) {
           </Button>
         </View>
       </ImageBackground>
-    </MasterLayout>
+    </SafeAreaView>
   )
 }
 
