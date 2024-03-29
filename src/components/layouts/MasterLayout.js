@@ -14,6 +14,6 @@ export default function MasterLayout ({ style, onScroll, children, ...rest }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.white
+    backgroundColor: COLORS.white.hex
   }
 })
