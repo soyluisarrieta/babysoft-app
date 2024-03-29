@@ -12,11 +12,13 @@ export default function RegisterScreen ({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
   const { setProfile } = useContext(AuthContext)
 
   const onRegister = async () => {
+    setIsLoading(true)
     setErrors({})
     try {
       await registerService({
@@ -38,6 +40,9 @@ export default function RegisterScreen ({ navigation }) {
     } finally {
       setPassword('')
       setPasswordConfirmation('')
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 300)
     }
   }
 
@@ -75,7 +80,14 @@ export default function RegisterScreen ({ navigation }) {
           onChangeText={(text) => setPasswordConfirmation(text)}
           errors={errors.password_confirmation}
         />
-        <Button variants='primary' onPress={onRegister} style={{ marginVertical: 20 }}>Registrarse</Button>
+        <Button
+          variants='primary'
+          onPress={onRegister}
+          style={{ marginVertical: 20 }}
+          loading={isLoading}
+        >
+          Registrarse
+        </Button>
       </View>
     </MasterLayout>
   )

@@ -10,11 +10,13 @@ import { FONTS } from '../theme'
 export default function LoginScreen () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
   const { setProfile } = useContext(AuthContext)
 
   const handleSubmit = async () => {
+    setIsLoading(true)
     setErrors({})
     try {
       await loginService({
@@ -32,6 +34,9 @@ export default function LoginScreen () {
       }
     } finally {
       setPassword('')
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 300)
     }
   }
 
@@ -56,7 +61,14 @@ export default function LoginScreen () {
           onChangeText={(text) => setPassword(text)}
           errors={errors.password}
         />
-        <Button variants='primary' onPress={handleSubmit} style={{ marginVertical: 20 }}>Iniciar sesión</Button>
+        <Button
+          variants='primary'
+          onPress={handleSubmit}
+          style={{ marginVertical: 20 }}
+          loading={isLoading}
+        >
+          Iniciar sesión
+        </Button>
       </View>
     </MasterLayout>
   )
