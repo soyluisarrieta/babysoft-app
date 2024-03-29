@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   },
   illustration: {
     height: 234,
+    opacity: 0.7,
     marginBottom: 20,
     alignSelf: 'center',
     resizeMode: 'contain'

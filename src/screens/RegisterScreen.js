@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, Platform, StyleSheet, Text, View } from 'react-native'
 import FormField from '../components/ui/FormField'
 import { profileService, registerService } from '../services/AuthService'
 import AuthContext from '../contexts/AuthContext'
@@ -43,42 +43,40 @@ export default function RegisterScreen ({ navigation }) {
 
   return (
     <MasterLayout>
-      <ScrollView>
-        <View style={styles.container}>
-          <Image
-            source={require('../../assets/register.png')}
-            style={styles.illustration}
-          />
-          <Text style={styles.paragraph}>Rellena el formulario para crear una cuenta.</Text>
-          <FormField
-            label='Nombre y apellido'
-            value={name}
-            onChangeText={(text) => setName(text)}
-            errors={errors.name}
-          />
-          <FormField
-            label='Correo electrónico'
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            errors={errors.email}
-          />
-          <FormField
-            label='Contraseña'
-            secureTextEntry
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            errors={errors.password}
-          />
-          <FormField
-            label='Confirmar contraseña'
-            secureTextEntry
-            value={passwordConfirmation}
-            onChangeText={(text) => setPasswordConfirmation(text)}
-            errors={errors.password_confirmation}
-          />
-          <Button variants='primary' onPress={onRegister} style={{ marginVertical: 20 }}>Registrarse</Button>
-        </View>
-      </ScrollView>
+      <View style={styles.container}>
+        <Image
+          source={require('../../assets/register.png')}
+          style={styles.illustration}
+        />
+        <Text style={styles.paragraph}>Rellena el formulario para crear una cuenta.</Text>
+        <FormField
+          label='Nombre y apellido'
+          value={name}
+          onChangeText={(text) => setName(text)}
+          errors={errors.name}
+        />
+        <FormField
+          label='Correo electrónico'
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          errors={errors.email}
+        />
+        <FormField
+          label='Contraseña'
+          secureTextEntry
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          errors={errors.password}
+        />
+        <FormField
+          label='Confirmar contraseña'
+          secureTextEntry
+          value={passwordConfirmation}
+          onChangeText={(text) => setPasswordConfirmation(text)}
+          errors={errors.password_confirmation}
+        />
+        <Button variants='primary' onPress={onRegister} style={{ marginVertical: 20 }}>Registrarse</Button>
+      </View>
     </MasterLayout>
   )
 }
@@ -90,6 +88,7 @@ const styles = StyleSheet.create({
   },
   illustration: {
     height: 234,
+    opacity: 0.7,
     marginBottom: 20,
     alignSelf: 'center',
     resizeMode: 'contain'
