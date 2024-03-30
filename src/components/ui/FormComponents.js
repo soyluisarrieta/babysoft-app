@@ -3,6 +3,7 @@ import { Picker } from '@react-native-picker/picker'
 import ErrorBlock from './ErrorBlock'
 import { COLORS, FONTS } from '../../theme'
 import { rgba } from '../../utils/helpers'
+import { useEffect, useState } from 'react'
 
 export function Label ({ children }) {
   return (
@@ -13,20 +14,25 @@ export function Label ({ children }) {
 }
 
 export function InputField ({ label, errors = [], ...rest }) {
+  const [validationErrors, setValidationErrors] = useState([])
+  useEffect(() => { setValidationErrors(errors) }, [errors.length])
   return (
     <View>
       {label && <Label>{label}</Label>}
       <TextInput
-        style={[styles.input, errors.length && { borderWidth: 1.3, borderColor: rgba('255,0,0', 0.5) }]}
+        style={[styles.input, validationErrors.length && { borderWidth: 1.3, borderColor: rgba('255,0,0', 0.5) }]}
         autoCapitalize='none'
+        onChange={() => { validationErrors.length && setValidationErrors([]) }}
         {...rest}
       />
-      <ErrorBlock errors={errors} />
+      <ErrorBlock errors={validationErrors} />
     </View>
   )
 }
 
 export function SelectField ({ label, errors = [], arrayItems, selectedValue, onValueChange, placeholder, children, ...rest }) {
+  const [validationErrors, setValidationErrors] = useState([])
+  useEffect(() => { setValidationErrors(errors) }, [errors.length])
   return (
     <View>
       {label && <Label>{label}</Label>}
@@ -34,12 +40,15 @@ export function SelectField ({ label, errors = [], arrayItems, selectedValue, on
         style={[
           styles.input,
           { paddingHorizontal: 4, paddingVertical: 0 },
-          errors.length && { borderWidth: 1.3, borderColor: rgba('255,0,0', 0.5) }
+          validationErrors.length && { borderWidth: 1.3, borderColor: rgba('255,0,0', 0.5) }
         ]}
       >
         <Picker
           selectedValue={selectedValue}
-          onValueChange={onValueChange}
+          onValueChange={(itemValue) => {
+            onValueChange(itemValue)
+            validationErrors.length && setValidationErrors([])
+          }}
           {...rest}
         >
           <Picker.Item label={placeholder || 'Selecciona una opción'} value={null} color='#a4a4a4' />
@@ -54,7 +63,7 @@ export function SelectField ({ label, errors = [], arrayItems, selectedValue, on
             : { children }}
         </Picker>
       </View>
-      <ErrorBlock errors={errors} />
+      <ErrorBlock errors={validationErrors} />
     </View>
   )
 }
