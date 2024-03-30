@@ -72,13 +72,13 @@ export default function ProductsScreen ({ navigation }) {
               <>
                 <TouchableOpacity style={styles.card} onPress={() => clickEventListener(producto)}>
                   <ImageBackground
-                    style={[{ overflow: 'hidden' }, styles.image]}
+                    style={[styles.image, { overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }]}
                     source={require('../../../assets/product-placeholder.png')}
                     imageStyle={{ opacity: 0.5 }}
                   >
                     <Image
                       style={styles.image}
-                      source={{ uri: `${API_URL}/producto/foto/${producto.Foto}` }}
+                      source={{ uri: `${API_URL}/../images/products/${producto.Foto}` }}
                     />
                   </ImageBackground>
 
@@ -110,7 +110,7 @@ export default function ProductsScreen ({ navigation }) {
                 >
                   <Image
                     style={styles.image}
-                    source={{ uri: `${API_URL}/producto/foto/${productSelected.Foto}` }}
+                    source={{ uri: `${API_URL}/../images/products/${productSelected.Foto}` }}
                   />
                 </ImageBackground>
                 <Text style={[styles.name, { fontSize: 40 }]}>{productSelected.nombreProducto}</Text>
@@ -173,9 +173,9 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   image: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
+    width: 80,
+    height: 80,
+    borderRadius: 50,
     borderWidth: 2,
     borderColor: '#ebf0f7'
   },
