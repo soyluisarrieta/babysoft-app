@@ -31,7 +31,7 @@ export default function RegisterScreen ({ navigation }) {
 
       const profile = await profileService()
       setProfile(profile)
-      navigation.replace('Products')
+      navigation.replace('products')
     } catch (e) {
       // console.warn(e.response)
       if (e.response?.status === 422) {
