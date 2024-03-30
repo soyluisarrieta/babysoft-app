@@ -19,7 +19,7 @@ export default function EditProductScreen ({ route }) {
   return (
     <MasterLayout withoutScroll>
       <View style={styles.container}>
-        <Text style={styles.paragraph}>Editar: {producto.nombre}</Text>
+        <Text style={styles.paragraph}>Editar: {producto.nombreProducto}</Text>
       </View>
     </MasterLayout>
   )
