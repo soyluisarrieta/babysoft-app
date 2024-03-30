@@ -1,24 +1,25 @@
 import { useContext, useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, Modal, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { productsService } from '../../services/ProductService'
 import Button from '../../components/ui/Button'
 import AuthContext from '../../contexts/AuthContext'
 import { logoutService } from '../../services/AuthService'
 import MasterLayout from '../../components/layouts/MasterLayout'
-import axios, { API_URL } from '../../utils/axios'
+import { API_URL } from '../../utils/axios'
 import { COLORS, FONTS } from '../../theme'
 
 export default function ProductsScreen ({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false)
   const [productSelected, setProductSelected] = useState({})
-  const [products, setProducts] = useState([])
+  const [productsList, setProductsList] = useState([])
   const [refreshing, setRefreshing] = useState(false)
   const { profile, setProfile } = useContext(AuthContext)
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios('/productos')
-        setProducts(response.data.productos)
+        const products = await productsService()
+        setProductsList(products)
       } catch (error) {
         console.error('Error fetching products:', error)
       }
@@ -40,8 +41,8 @@ export default function ProductsScreen ({ navigation }) {
   const onRefresh = async () => {
     setRefreshing(true)
     try {
-      const response = await axios('/productos')
-      setProducts(response.data.productos)
+      const products = await productsService()
+      setProductsList(products)
     } catch (error) {
       console.error('Error fetching products:', error)
     } finally {
@@ -64,7 +65,7 @@ export default function ProductsScreen ({ navigation }) {
           </Button>
         </View>
         <FlatList
-          data={products}
+          data={productsList}
           keyExtractor={item => item.id}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           renderItem={({ item: producto }) => {
