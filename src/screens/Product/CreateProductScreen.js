@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
 import MasterLayout from '../../components/layouts/MasterLayout'
 import { FONTS } from '../../theme'
+import ProductForm from '../../components/ProductForm'
+import { createProductService } from '../../services/ProductService'
 
 export default function CreateProductScreen () {
   return (
-    <MasterLayout withoutScroll>
+    <MasterLayout>
       <View style={styles.container}>
-        <Text>Crear</Text>
+        <Text style={styles.paragraph}>Rellena el formulario para agregar un nuevo producto a la lista:</Text>
+        <ProductForm apiService={createProductService} />
       </View>
     </MasterLayout>
   )
@@ -20,6 +23,7 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     fontFamily: FONTS.primary.regular,
-    fontSize: 20
+    fontSize: 20,
+    marginVertical: 10
   }
 })
