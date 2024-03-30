@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { Image, Platform, StyleSheet, Text, View } from 'react-native'
-import FormField from '../components/ui/FormField'
+import { InputField } from '../components/ui/FormComponents'
 import { loginService, profileService } from '../services/AuthService'
 import AuthContext from '../contexts/AuthContext'
 import MasterLayout from '../components/layouts/MasterLayout'
@@ -48,13 +48,13 @@ export default function LoginScreen () {
           style={styles.illustration}
         />
         <Text style={styles.paragraph}>Ingresa tu correo electrónico y contraseña para identificarte.</Text>
-        <FormField
+        <InputField
           label='Correo electrónico'
           value={email}
           onChangeText={(text) => setEmail(text)}
           errors={errors.email}
         />
-        <FormField
+        <InputField
           label='Contraseña'
           secureTextEntry
           value={password}

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { Image, Platform, StyleSheet, Text, View } from 'react-native'
-import FormField from '../components/ui/FormField'
+import { InputField } from '../components/ui/FormComponents'
 import { profileService, registerService } from '../services/AuthService'
 import AuthContext from '../contexts/AuthContext'
 import MasterLayout from '../components/layouts/MasterLayout'
@@ -54,26 +54,26 @@ export default function RegisterScreen ({ navigation }) {
           style={styles.illustration}
         />
         <Text style={styles.paragraph}>Rellena el formulario para crear una cuenta.</Text>
-        <FormField
+        <InputField
           label='Nombre y apellido'
           value={name}
           onChangeText={(text) => setName(text)}
           errors={errors.name}
         />
-        <FormField
+        <InputField
           label='Correo electrónico'
           value={email}
           onChangeText={(text) => setEmail(text)}
           errors={errors.email}
         />
-        <FormField
+        <InputField
           label='Contraseña'
           secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
           errors={errors.password}
         />
-        <FormField
+        <InputField
           label='Confirmar contraseña'
           secureTextEntry
           value={passwordConfirmation}
