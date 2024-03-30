@@ -21,12 +21,18 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+      if ($request->expectsJson()) {
+        $productos = Producto::all();
+        return response()->json(['productos' => $productos], 200);
+      } else {
+        die('no');
         $productos = Producto::paginate();
 
         return view('producto.index', compact('productos'))
             ->with('i', (request()->input('page', 1) - 1) * $productos->perPage());
+      }
     }
 
     /**
