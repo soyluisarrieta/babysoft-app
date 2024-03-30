@@ -1,17 +1,31 @@
-import { useContext, useState } from 'react'
-import { FlatList, Image, ImageBackground, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useContext, useEffect, useState } from 'react'
+import { FlatList, Image, ImageBackground, Modal, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Button from '../../components/ui/Button'
 import AuthContext from '../../contexts/AuthContext'
 import { logoutService } from '../../services/AuthService'
 import MasterLayout from '../../components/layouts/MasterLayout'
-import { MOCK_PRODUCTS } from '../../mocks/products'
-import { API_URL } from '../../utils/axios'
+import axios, { API_URL } from '../../utils/axios'
 import { COLORS, FONTS } from '../../theme'
 
 export default function ProductsScreen ({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false)
   const [productSelected, setProductSelected] = useState({})
+  const [products, setProducts] = useState([])
+  const [refreshing, setRefreshing] = useState(false)
   const { profile, setProfile } = useContext(AuthContext)
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios('/productos')
+        setProducts(response.data.productos)
+      } catch (error) {
+        console.error('Error fetching products:', error)
+      }
+    }
+
+    fetchProducts()
+  }, [])
 
   const handleLogout = async () => {
     await logoutService()
@@ -21,6 +35,18 @@ export default function ProductsScreen ({ navigation }) {
   const clickEventListener = (item) => {
     setProductSelected(item)
     setModalVisible(true)
+  }
+
+  const onRefresh = async () => {
+    setRefreshing(true)
+    try {
+      const response = await axios('/productos')
+      setProducts(response.data.productos)
+    } catch (error) {
+      console.error('Error fetching products:', error)
+    } finally {
+      setRefreshing(false)
+    }
   }
 
   return (
@@ -38,27 +64,30 @@ export default function ProductsScreen ({ navigation }) {
           </Button>
         </View>
         <FlatList
-          data={MOCK_PRODUCTS}
+          data={products}
           keyExtractor={item => item.id}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           renderItem={({ item: producto }) => {
             return (
-              <TouchableOpacity style={styles.card} onPress={() => clickEventListener(producto)}>
-                <ImageBackground
-                  style={[{ overflow: 'hidden' }, styles.image]}
-                  source={require('../../../assets/product-placeholder.png')}
-                  imageStyle={{ opacity: 0.5 }}
-                >
-                  <Image
-                    style={styles.image}
-                    source={{ uri: `${API_URL}/producto/foto/${producto.foto}` }}
-                  />
-                </ImageBackground>
+              <>
+                <TouchableOpacity style={styles.card} onPress={() => clickEventListener(producto)}>
+                  <ImageBackground
+                    style={[{ overflow: 'hidden' }, styles.image]}
+                    source={require('../../../assets/product-placeholder.png')}
+                    imageStyle={{ opacity: 0.5 }}
+                  >
+                    <Image
+                      style={styles.image}
+                      source={{ uri: `${API_URL}/producto/foto/${producto.Foto}` }}
+                    />
+                  </ImageBackground>
 
-                <View style={styles.cardContent}>
-                  <Text style={styles.name}>{producto.nombre}</Text>
-                  <Text style={styles.pricing}>{producto.talla}  |  ${producto.precio}</Text>
-                </View>
-              </TouchableOpacity>
+                  <View style={styles.cardContent}>
+                    <Text style={styles.name}>{producto.nombreProducto}</Text>
+                    <Text style={styles.pricing}>{producto.Talla}  |  ${producto.Precio}</Text>
+                  </View>
+                </TouchableOpacity>
+              </>
             )
           }}
         />
@@ -81,24 +110,25 @@ export default function ProductsScreen ({ navigation }) {
                 >
                   <Image
                     style={styles.image}
-                    source={{ uri: `${API_URL}/producto/foto/${productSelected.foto}` }}
+                    source={{ uri: `${API_URL}/producto/foto/${productSelected.Foto}` }}
                   />
                 </ImageBackground>
-                <Text style={[styles.name, { fontSize: 40 }]}>{productSelected.nombre}</Text>
+                <Text style={[styles.name, { fontSize: 40 }]}>{productSelected.nombreProducto}</Text>
                 <Text style={[styles.paragraph, { fontFamily: FONTS.primary.semibold, fontSize: 26, marginBottom: 20 }]}>
-                  $ {productSelected.precio}
+                  $ {productSelected.Precio}
                 </Text>
-                <Text style={styles.paragraph}>Talla: {productSelected.talla}</Text>
+                <Text style={styles.paragraph}>{productSelected.Cantidad} disponibles</Text>
+                <Text style={styles.paragraph}>Talla: {productSelected.Talla}</Text>
                 <View style={{ flexDirection: 'row' }}>
                   <Text style={styles.paragraph}>Categoría:</Text>
                   <Text
                     onPress={() => { setModalVisible(false) }}
                     style={[styles.paragraph, { color: COLORS.secundary.hex, fontFamily: FONTS.primary.semibold, textDecorationLine: 'underline', marginLeft: 7 }]}
                   >
-                    {productSelected.categoria}
+                    {productSelected.Categoria}
                   </Text>
                 </View>
-                <Text style={styles.paragraph}>{productSelected.cantidad} disponibles</Text>
+                <Text style={styles.paragraph}>Id Referencia: {productSelected.idReferencia}</Text>
               </ScrollView>
             </View>
             <View style={styles.popupButtons}>
