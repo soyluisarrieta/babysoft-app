@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LoginScreen from './src/screens/LoginScreen'
-import ProductsScreen from './src/screens/ProductsScreen'
 import { profileService } from './src/services/AuthService'
 import AuthContext from './src/contexts/AuthContext'
 import SplashScreen from './src/screens/SplashScreen'
@@ -10,6 +9,9 @@ import RegisterScreen from './src/screens/RegisterScreen'
 import HomeScreen from './src/screens/HomeScreen'
 import { useFonts } from 'expo-font'
 import { COLORS, FONTS } from './src/theme'
+import ProductsScreen from './src/screens/Product/ProductsScreen'
+import EditProductScreen from './src/screens/Product/EditProductScreen'
+import CreateProductScreen from './src/screens/Product/CreateProductScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -63,6 +65,8 @@ export default function App () {
             ? (
               <>
                 <Stack.Screen name='products' component={ProductsScreen} options={{ title: 'Productos' }} />
+                <Stack.Screen name='product-create' component={CreateProductScreen} options={{ title: 'Editar productos' }} />
+                <Stack.Screen name='product-edit' component={EditProductScreen} options={{ title: 'Editar productos' }} />
               </>
               )
             : (
