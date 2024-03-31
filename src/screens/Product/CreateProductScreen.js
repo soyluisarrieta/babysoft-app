@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import MasterLayout from '../../components/layouts/MasterLayout'
-import { FONTS } from '../../theme'
+import { COLORS, FONTS } from '../../theme'
 import ProductForm from '../../components/ProductForm'
 import { createProductService } from '../../services/ProductService'
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#ebf0f7'
+    backgroundColor: COLORS.white.hex
   },
   paragraph: {
     fontFamily: FONTS.primary.regular,

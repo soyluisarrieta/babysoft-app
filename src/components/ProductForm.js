@@ -5,13 +5,14 @@ import Button from './ui/Button'
 import { useNavigation } from '@react-navigation/native'
 
 export default function ProductForm ({ product = {}, apiService }) {
-  const [name, setName] = useState(product.name || '')
-  const [talla, setTalla] = useState(product.talla || '')
-  const [cantidad, setCantidad] = useState(product.cantidad || null)
-  const [categoria, setCategoria] = useState(product.categoria || '')
-  const [precio, setPrecio] = useState(product.precio || null)
-  const [foto, setFoto] = useState(product.foto || null)
-  const [idReferencia, setIdReferencia] = useState(product.foto || null)
+  console.log({ product })
+  const [name, setName] = useState(product.nombreProducto || '')
+  const [talla, setTalla] = useState(product.Talla || '')
+  const [cantidad, setCantidad] = useState(product.Cantidad || 0)
+  const [categoria, setCategoria] = useState(product.Categoria || '')
+  const [precio, setPrecio] = useState(product.Precio || null)
+  const [foto, setFoto] = useState(product.Foto || null)
+  const [idReferencia, setIdReferencia] = useState(product.idReferencia || null)
 
   const navigation = useNavigation()
 
@@ -29,8 +30,8 @@ export default function ProductForm ({ product = {}, apiService }) {
         Talla: talla,
         Cantidad: cantidad,
         Categoria: categoria,
-        Precio: precio,
-        Foto: foto
+        Precio: precio
+        // Foto: foto
       })
       navigation.navigate('products')
     } catch (e) {
@@ -65,6 +66,7 @@ export default function ProductForm ({ product = {}, apiService }) {
       <InputField
         label='Cantidad'
         value={cantidad}
+        numeric
         onChangeText={(text) => setCantidad(text)}
         errors={errors.Cantidad}
       />
@@ -79,6 +81,7 @@ export default function ProductForm ({ product = {}, apiService }) {
       <InputField
         label='Precio'
         value={precio}
+        numeric
         onChangeText={(text) => setPrecio(text)}
         errors={errors.Precio}
       />
