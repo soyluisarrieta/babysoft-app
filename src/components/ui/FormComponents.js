@@ -13,15 +13,17 @@ export function Label ({ children }) {
   )
 }
 
-export function InputField ({ label, errors = [], ...rest }) {
+export function InputField ({ label, errors = [], value, numeric = false, ...rest }) {
   const [validationErrors, setValidationErrors] = useState([])
   useEffect(() => { setValidationErrors(errors) }, [errors.length])
   return (
     <View>
       {label && <Label>{label}</Label>}
       <TextInput
+        value={value && value.toString()}
         style={[styles.input, validationErrors.length && { borderWidth: 1.3, borderColor: rgba('255,0,0', 0.5) }]}
         autoCapitalize='none'
+        keyboardType={numeric ? 'numeric' : 'default'}
         onChange={() => { validationErrors.length && setValidationErrors([]) }}
         {...rest}
       />
