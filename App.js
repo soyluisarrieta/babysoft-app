@@ -65,7 +65,7 @@ export default function App () {
             ? (
               <>
                 <Stack.Screen name='products' component={ProductsScreen} options={{ title: 'Productos' }} />
-                <Stack.Screen name='product-create' component={CreateProductScreen} options={{ title: 'Editar productos' }} />
+                <Stack.Screen name='product-create' component={CreateProductScreen} options={{ title: 'Crear producto' }} />
                 <Stack.Screen name='product-edit' component={EditProductScreen} options={{ title: 'Editar productos' }} />
               </>
               )
