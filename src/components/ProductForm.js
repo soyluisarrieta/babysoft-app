@@ -51,7 +51,7 @@ export default function ProductForm ({ product = {}, apiService }) {
     }
   }
 
-  const pickImage = async () => {
+  const handlePickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -116,7 +116,7 @@ export default function ProductForm ({ product = {}, apiService }) {
         <Label>Foto</Label>
         <TouchableOpacity
           style={styles.imagePicker}
-          onPress={pickImage}
+          onPress={handlePickImage}
         >
           <ImageBackground
             style={[styles.imagePicker, { overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }]}
