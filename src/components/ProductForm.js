@@ -8,7 +8,7 @@ export default function ProductForm ({ product = {}, apiService }) {
   console.log({ product })
   const [name, setName] = useState(product.nombreProducto || '')
   const [talla, setTalla] = useState(product.Talla || '')
-  const [cantidad, setCantidad] = useState(product.Cantidad || 0)
+  const [cantidad, setCantidad] = useState(product.Cantidad || '0')
   const [categoria, setCategoria] = useState(product.Categoria || '')
   const [precio, setPrecio] = useState(product.Precio || null)
   const [foto, setFoto] = useState(product.Foto || null)
