@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { InputField, SelectField } from './ui/FormComponents'
+import { View, StyleSheet, Image, TouchableOpacity, ImageBackground, Text } from 'react-native'
+import { InputField, Label, SelectField } from './ui/FormComponents'
 import Button from './ui/Button'
 import { useNavigation } from '@react-navigation/native'
+import * as ImagePicker from 'expo-image-picker'
+import ErrorBlock from './ui/ErrorBlock'
+import { rgba } from '../utils/helpers'
+import { COLORS } from '../theme'
+import { API_URL } from '../utils/axios'
 
 export default function ProductForm ({ product = {}, apiService }) {
-  console.log({ product })
   const [name, setName] = useState(product.nombreProducto || '')
   const [talla, setTalla] = useState(product.Talla || '')
   const [cantidad, setCantidad] = useState(product.Cantidad || '0')
   const [categoria, setCategoria] = useState(product.Categoria || '')
   const [precio, setPrecio] = useState(product.Precio || null)
-  const [foto, setFoto] = useState(product.Foto || null)
+  const [foto, setFoto] = useState(`${API_URL}/../images/products/${product.Foto}` || null)
   const [idReferencia, setIdReferencia] = useState(product.idReferencia || null)
 
   const navigation = useNavigation()
@@ -30,8 +34,8 @@ export default function ProductForm ({ product = {}, apiService }) {
         Talla: talla,
         Cantidad: cantidad,
         Categoria: categoria,
-        Precio: precio
-        // Foto: foto
+        Precio: precio,
+        Foto: foto // Agregar la foto al objeto enviado
       })
       navigation.navigate('products')
     } catch (e) {
@@ -47,13 +51,40 @@ export default function ProductForm ({ product = {}, apiService }) {
     }
   }
 
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    })
+
+    if (!result.canceled) {
+      setFoto(result.assets[0].uri)
+    }
+  }
+
   return (
     <View style={styles.formContainer}>
+      <InputField
+        label='Id de Referencia'
+        value={idReferencia}
+        onChangeText={(text) => setIdReferencia(text)}
+        errors={errors.idReferencia}
+      />
       <InputField
         label='Nombre del producto'
         value={name}
         onChangeText={(text) => setName(text)}
         errors={errors.nombreProducto}
+      />
+      <SelectField
+        label='Categorías'
+        arrayItems={['Camisa', 'Pantalón', 'Conjunto', 'Pijamas']}
+        selectedValue={categoria}
+        onValueChange={(itemValue) => setCategoria(itemValue)}
+        placeholder='Selecciona una categoría'
+        errors={errors.Categoria}
       />
       <SelectField
         label='Tallas'
@@ -70,34 +101,38 @@ export default function ProductForm ({ product = {}, apiService }) {
         onChangeText={(text) => setCantidad(text)}
         errors={errors.Cantidad}
       />
-      <SelectField
-        label='Categorías'
-        arrayItems={['Camisa', 'Pantalón', 'Conjunto', 'Pijamas']}
-        selectedValue={categoria}
-        onValueChange={(itemValue) => setCategoria(itemValue)}
-        placeholder='Selecciona una categoría'
-        errors={errors.Categoria}
-      />
-      <InputField
-        label='Precio'
-        value={precio}
-        numeric
-        onChangeText={(text) => setPrecio(text)}
-        errors={errors.Precio}
-      />
-      <InputField
-        label='Foto'
-        value={foto}
-        onChangeText={(text) => setFoto(text)}
-        errors={errors.Foto}
-      />
-
-      <InputField
-        label='Id de Referencia'
-        value={idReferencia}
-        onChangeText={(text) => setIdReferencia(text)}
-        errors={errors.idReferencia}
-      />
+      <View>
+        <InputField
+          label='Precio'
+          value={precio}
+          numeric
+          onChangeText={(text) => setPrecio(text)}
+          errors={errors.Precio}
+          style={{ paddingLeft: 25 }}
+        />
+        <Text style={{ position: 'absolute', bottom: 15, left: 15, opacity: 0.4 }}>$</Text>
+      </View>
+      <View>
+        <Label>Foto</Label>
+        <TouchableOpacity
+          style={styles.imagePicker}
+          onPress={pickImage}
+        >
+          <ImageBackground
+            style={[styles.imagePicker, { overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }]}
+            source={require('../../assets/product-placeholder.png')}
+            imageStyle={{ opacity: 0.5 }}
+          >
+            {foto && (
+              <Image
+                style={styles.imagePreview}
+                source={{ uri: foto }}
+              />
+            )}
+          </ImageBackground>
+        </TouchableOpacity>
+        <ErrorBlock errors={errors.foto} />
+      </View>
 
       <View style={styles.buttonsContainer}>
         <Button
@@ -127,5 +162,17 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     paddingTop: 30
+  },
+  imagePicker: {
+    width: '100%',
+    height: 300,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: rgba(COLORS.black.rgb, 0.1)
+  },
+  imagePreview: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover'
   }
 })
