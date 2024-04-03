@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useRef, useState } from 'react'
 import { FlatList, Image, ImageBackground, Modal, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { productsService } from '../../services/ProductService'
 import Button from '../../components/ui/Button'
@@ -7,26 +7,34 @@ import { logoutService } from '../../services/AuthService'
 import MasterLayout from '../../components/layouts/MasterLayout'
 import { API_URL } from '../../utils/axios'
 import { COLORS, FONTS } from '../../theme'
+import { useFocusEffect } from '@react-navigation/core'
 
 export default function ProductsScreen ({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false)
   const [productSelected, setProductSelected] = useState({})
   const [productsList, setProductsList] = useState([])
   const [refreshing, setRefreshing] = useState(false)
+
   const { profile, setProfile } = useContext(AuthContext)
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const products = await productsService()
-        setProductsList(products)
-      } catch (error) {
-        console.error('Error fetching products:', error)
-      }
-    }
+  const flatListRef = useRef(null)
 
-    fetchProducts()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      const fetchProducts = async () => {
+        try {
+          const products = await productsService()
+          setProductsList(products)
+        } catch (error) {
+          console.error('Error fetching products:', error)
+        }
+      }
+      fetchProducts()
+
+      flatListRef.current?.scrollToOffset({ offset: 0, animated: true })
+      return () => {}
+    }, [])
+  )
 
   const handleLogout = async () => {
     await logoutService()
@@ -65,9 +73,11 @@ export default function ProductsScreen ({ navigation }) {
           </Button>
         </View>
         <FlatList
+          ref={flatListRef}
           data={productsList}
           keyExtractor={item => item.id}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          contentContainerStyle={{ flexDirection: 'column-reverse' }}
           renderItem={({ item: producto }) => {
             return (
               <>
