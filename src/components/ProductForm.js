@@ -12,11 +12,11 @@ import { API_URL } from '../utils/axios'
 export default function ProductForm ({ product = {}, apiService }) {
   const [name, setName] = useState(product.nombreProducto || '')
   const [talla, setTalla] = useState(product.Talla || '')
-  const [cantidad, setCantidad] = useState(product.Cantidad || '0')
+  const [cantidad, setCantidad] = useState(product.Cantidad || '')
   const [categoria, setCategoria] = useState(product.Categoria || '')
-  const [precio, setPrecio] = useState(product.Precio || null)
-  const [foto, setFoto] = useState(`${API_URL}/../images/products/${product.Foto}` || null)
-  const [idReferencia, setIdReferencia] = useState(product.idReferencia || null)
+  const [precio, setPrecio] = useState(product.Precio || '')
+  const [foto, setFoto] = useState(`${API_URL}/../images/products/${product.Foto}` || '')
+  const [idReferencia, setIdReferencia] = useState(product.idReferencia || '')
 
   const navigation = useNavigation()
 
@@ -26,20 +26,22 @@ export default function ProductForm ({ product = {}, apiService }) {
   const handleSubmit = async () => {
     setIsLoading(true)
     setErrors({})
+
     try {
-      await apiService({
-        id: product?.id,
-        idReferencia,
-        nombreProducto: name,
-        Talla: talla,
-        Cantidad: cantidad,
-        Categoria: categoria,
-        Precio: precio,
-        Foto: foto // Agregar la foto al objeto enviado
-      })
+      const formData = new FormData()
+      formData.append('id', product?.id || '')
+      formData.append('idReferencia', idReferencia)
+      formData.append('nombreProducto', name)
+      formData.append('Talla', talla)
+      formData.append('Cantidad', cantidad)
+      formData.append('Categoria', categoria)
+      formData.append('Precio', precio)
+      formData.append('Foto', { uri: foto, type: 'image/jpeg', name: 'productImage.jpg' })
+
+      await apiService(formData)
       navigation.navigate('products')
     } catch (e) {
-      console.warn(e.response)
+      // console.warn(e.response)
       if (e.response?.status === 422) {
         console.log(e.response.data.errors)
         setErrors(e.response.data.errors)
@@ -53,14 +55,16 @@ export default function ProductForm ({ product = {}, apiService }) {
 
   const handlePickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      mimeTypes: ['image/jpeg', 'image/png', 'image/jpg', 'image/gif']
     })
 
     if (!result.canceled) {
       setFoto(result.assets[0].uri)
+      const updatedErrors = { ...errors }
+      delete updatedErrors.Foto
+      setErrors(updatedErrors)
     }
   }
 
@@ -99,6 +103,7 @@ export default function ProductForm ({ product = {}, apiService }) {
         value={cantidad}
         numeric
         onChangeText={(text) => setCantidad(text)}
+        placeholder='0'
         errors={errors.Cantidad}
       />
       <View>
@@ -110,7 +115,7 @@ export default function ProductForm ({ product = {}, apiService }) {
           errors={errors.Precio}
           style={{ paddingLeft: 25 }}
         />
-        <Text style={{ position: 'absolute', bottom: 15, left: 15, opacity: 0.4 }}>$</Text>
+        <Text style={{ position: 'absolute', top: 44, left: 15, opacity: 0.4 }}>$</Text>
       </View>
       <View>
         <Label>Foto</Label>
@@ -125,13 +130,13 @@ export default function ProductForm ({ product = {}, apiService }) {
           >
             {foto && (
               <Image
-                style={styles.imagePreview}
+                style={[styles.imagePreview, errors.Foto && { borderWidth: 2, borderColor: rgba('255,0,0', 0.5) }]}
                 source={{ uri: foto }}
               />
             )}
           </ImageBackground>
         </TouchableOpacity>
-        <ErrorBlock errors={errors.foto} />
+        <ErrorBlock errors={errors.Foto} />
       </View>
 
       <View style={styles.buttonsContainer}>
