@@ -161,7 +161,7 @@ export default function ProductsScreen ({ navigation }) {
             <View style={styles.popupButtons}>
               <TouchableOpacity
                 onPress={() => handleDeleteProduct(productSelected.id)}
-                style={[styles.btnClose, { backgroundColor: COLORS.primary.hex }]}
+                style={[styles.btnClose, { backgroundColor: COLORS.secundary.hex }]}
               >
                 <Text style={styles.txtClose}>Eliminar</Text>
               </TouchableOpacity>
@@ -170,7 +170,7 @@ export default function ProductsScreen ({ navigation }) {
                   setModalVisible(false)
                   navigation.navigate('product-edit', { producto: productSelected })
                 }}
-                style={[styles.btnClose, { backgroundColor: COLORS.secundary.hex }]}
+                style={[styles.btnClose, { backgroundColor: COLORS.primary.hex }]}
               >
                 <Text style={styles.txtClose}>Editar</Text>
               </TouchableOpacity>
