@@ -6,9 +6,14 @@ export async function productsService () {
 }
 
 export async function createProductService (product) {
-  return await axios.post('/productos', product)
+  return await axios.post('/productos', product, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
 }
 
 export async function updateProductService (product) {
-  return await axios.put(`/productos/${product.id}`, product)
+  const id = product.getParts().find(item => item.fieldName === 'id').string
+  return await axios.post(`/productos/${id}?_method=PUT`, product, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
 }
