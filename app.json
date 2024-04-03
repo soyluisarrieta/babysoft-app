@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/system-images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.soyluisarrieta.babysoftapp"
     },
     "web": {
       "favicon": "./assets/system-images/favicon.png"
