@@ -53,7 +53,7 @@ export function SelectField ({ label, errors = [], arrayItems, selectedValue, on
           }}
           {...rest}
         >
-          <Picker.Item label={placeholder || 'Selecciona una opción'} value={null} color='#a4a4a4' />
+          <Picker.Item label={placeholder || 'Selecciona una opción'} value='' color='#a4a4a4' />
           {arrayItems
             ? (arrayItems.map((item) => (
               <Picker.Item
