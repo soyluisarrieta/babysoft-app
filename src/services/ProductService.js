@@ -17,3 +17,7 @@ export async function updateProductService (product) {
     headers: { 'Content-Type': 'multipart/form-data' }
   })
 }
+
+export async function deleteProductService (id) {
+  return await axios.delete(`/productos/${id}`)
+}

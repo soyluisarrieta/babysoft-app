@@ -210,27 +210,32 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $producto = Producto::find($id);
+        try {
+            $producto = Producto::findOrFail($id);
+            
+            // Verificar si el producto tiene ventas o compras asociadas
+            if ($producto->ventas()->exists() || $producto->compras()->exists()) {
+                throw new \Exception('No se puede eliminar el producto porque tiene ventas o compras asociadas.');
+            }
 
-        
-        // Verificar si el cliente tiene ventas asociadas
-        if ($producto->ventas()->exists()) {
-            return redirect()->route('productos.index')
-                ->with('error', 'No se puede eliminar el producto porque tiene ventas asociadas.');
-        } // Verificar si hay compras asociadas al proveedor
+            $producto->delete();
 
-        if ($producto->compras()->exists()) {
-            return redirect()->route('productos.index')
-                ->with('error', '¡No puedes eliminar este producto porque tiene compras asociadas!');
+            if ($request->ajax() || $request->expectsJson()) {
+                return response()->json(['success' => '¡Producto eliminado con éxito!'], 200);
+            } else {
+                return redirect()->route('productos.index')->with('success', '¡Producto eliminado con éxito!');
+            }
+        } catch (\Exception $e) {
+            $errorMessage = $e->getMessage();
+
+            if ($request->ajax() || $request->expectsJson()) {
+                return response()->json(['error' => $errorMessage], 200);
+            } else {
+                return redirect()->route('productos.index')->with('error', $errorMessage);
+            }
         }
-
-        // Si no tiene ventas asociadas, se puede eliminar
-        $producto->delete();
-
-        return redirect()->route('productos.index')
-            ->with('success', '¡Producto eliminado con exito!');
     }
 
 }

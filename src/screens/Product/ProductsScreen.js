@@ -1,6 +1,6 @@
 import { useCallback, useContext, useRef, useState } from 'react'
-import { FlatList, Image, ImageBackground, Modal, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { productsService } from '../../services/ProductService'
+import { Alert, FlatList, Image, ImageBackground, Modal, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { deleteProductService, productsService } from '../../services/ProductService'
 import Button from '../../components/ui/Button'
 import AuthContext from '../../contexts/AuthContext'
 import { logoutService } from '../../services/AuthService'
@@ -56,6 +56,25 @@ export default function ProductsScreen ({ navigation }) {
     } finally {
       setRefreshing(false)
     }
+  }
+
+  const handleDeleteProduct = async () => {
+    Alert.alert(
+      '¿Quieres ELIMINAR este producto?',
+      'Esta acción no se puede revertir!',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Eliminar',
+          onPress: async () => {
+            await deleteProductService(productSelected.id)
+            setModalVisible(false)
+            onRefresh()
+          }
+        }
+      ],
+      { cancelable: false }
+    )
   }
 
   return (
@@ -132,10 +151,7 @@ export default function ProductsScreen ({ navigation }) {
                 <Text style={styles.paragraph}>Talla: {productSelected.Talla}</Text>
                 <View style={{ flexDirection: 'row' }}>
                   <Text style={styles.paragraph}>Categoría:</Text>
-                  <Text
-                    onPress={() => { setModalVisible(false) }}
-                    style={[styles.paragraph, { color: COLORS.secundary.hex, fontFamily: FONTS.primary.semibold, textDecorationLine: 'underline', marginLeft: 7 }]}
-                  >
+                  <Text style={[styles.paragraph, { color: COLORS.secundary.hex, fontFamily: FONTS.primary.semibold, marginLeft: 7 }]}>
                     {productSelected.Categoria}
                   </Text>
                 </View>
@@ -144,13 +160,19 @@ export default function ProductsScreen ({ navigation }) {
             </View>
             <View style={styles.popupButtons}>
               <TouchableOpacity
+                onPress={() => handleDeleteProduct(productSelected.id)}
+                style={[styles.btnClose, { backgroundColor: COLORS.primary.hex }]}
+              >
+                <Text style={styles.txtClose}>Eliminar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
                 onPress={() => {
                   setModalVisible(false)
                   navigation.navigate('product-edit', { producto: productSelected })
                 }}
-                style={[styles.btnClose, { backgroundColor: COLORS.primary.hex }]}
+                style={[styles.btnClose, { backgroundColor: COLORS.secundary.hex }]}
               >
-                <Text style={styles.txtClose}>Editar producto</Text>
+                <Text style={styles.txtClose}>Editar</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => { setModalVisible(false) }}
@@ -258,9 +280,10 @@ const styles = StyleSheet.create({
     marginBottom: 45
   },
   popupButtons: {
+    paddingHorizontal: 7,
     marginTop: 15,
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-around'
   },
   popupButton: {
     flex: 1,
