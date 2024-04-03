@@ -27,7 +27,6 @@ class ProductoController extends Controller
         $productos = Producto::all();
         return response()->json(['productos' => $productos], 200);
       } else {
-        die('no');
         $productos = Producto::paginate();
 
         return view('producto.index', compact('productos'))
@@ -85,7 +84,7 @@ class ProductoController extends Controller
         $producto->save();
 
         // Verificar si es una solicitud ajax
-        if ($request->ajax()) {
+        if ($request->ajax() || $request->expectsJson()) {
           $productos = Producto::all();
           return response()->json(['success' => '¡Producto creado con exito!', 'productos' => $productos], 200);
         } else {
@@ -162,8 +161,13 @@ class ProductoController extends Controller
               $producto->save();
           }
 
-          return redirect()->route('productos.index')
-              ->with('success', '¡Producto editado con éxito!');
+          // Verificar si es una solicitud ajax
+          if ($request->ajax() || $request->expectsJson()) {
+            return response()->json(['success' => '¡Producto editado con exito!'], 200);
+          } else {
+            return redirect()->route('productos.index')
+                ->with('success', '¡Producto editado con éxito!');
+          }
       } catch (\Exception $e) {
           return redirect()->back()->withInput()->with('error', $e->getMessage());
       }
