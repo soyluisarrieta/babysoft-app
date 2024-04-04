@@ -6,7 +6,7 @@ export default function MasterLayout ({ style, withoutScroll, children, ...rest 
     <SafeAreaView style={[styles.container, style]} {...rest}>
       {withoutScroll
         ? children
-        : <ScrollView>{children}</ScrollView>}
+        : <ScrollView keyboardShouldPersistTaps='handled'>{children}</ScrollView>}
     </SafeAreaView>
   )
 }

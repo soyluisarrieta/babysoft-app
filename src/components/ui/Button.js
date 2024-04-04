@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, Keyboard } from 'react-native'
 import { COLORS, FONTS } from '../../theme'
 import { rgba } from '../../utils/helpers'
 
@@ -47,7 +47,7 @@ const Button = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => { onPress(); Keyboard.dismiss() }}
       onLongPress={onLongPress}
       disabled={disabled}
       activeOpacity={activeOpacity}

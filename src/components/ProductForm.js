@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, TouchableOpacity, ImageBackground, Text } from
 import { InputField, Label, SelectField } from './ui/FormComponents'
 import Button from './ui/Button'
 import { useNavigation } from '@react-navigation/native'
-import * as ImagePicker from 'expo-image-picker'
+import { launchImageLibrary } from 'react-native-image-picker'
 import ErrorBlock from './ui/ErrorBlock'
 import { rgba } from '../utils/helpers'
 import { COLORS } from '../theme'
@@ -15,8 +15,8 @@ export default function ProductForm ({ product = {}, apiService }) {
   const [cantidad, setCantidad] = useState(product.Cantidad || '')
   const [categoria, setCategoria] = useState(product.Categoria || '')
   const [precio, setPrecio] = useState(product.Precio || '')
-  const [foto, setFoto] = useState(`${API_URL}/../images/products/${product.Foto}` || '')
-  const [idReferencia, setIdReferencia] = useState(product.idReferencia || '')
+  const [foto, setFoto] = useState((product.Foto && `${API_URL}/../images/products/${product.Foto}`) || '')
+  const [idReferencia, setIdReferencia] = useState(product.idReferencia || null)
 
   const navigation = useNavigation()
 
@@ -36,12 +36,12 @@ export default function ProductForm ({ product = {}, apiService }) {
       formData.append('Cantidad', cantidad)
       formData.append('Categoria', categoria)
       formData.append('Precio', precio)
-      formData.append('Foto', { uri: foto, type: 'image/jpeg', name: 'productImage.jpg' })
-
+      foto && formData.append('Foto', { uri: foto, type: 'image/jpeg', name: 'productImage.jpg' })
+      console.log(formData.getParts())
       await apiService(formData)
       navigation.navigate('products')
     } catch (e) {
-      // console.warn(e.response)
+      console.warn(e, e.response)
       if (e.response?.status === 422) {
         console.log(e.response.data.errors)
         setErrors(e.response.data.errors)
@@ -53,19 +53,25 @@ export default function ProductForm ({ product = {}, apiService }) {
     }
   }
 
-  const handlePickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
-      mimeTypes: ['image/jpeg', 'image/png', 'image/jpg', 'image/gif']
-    })
-
-    if (!result.canceled) {
-      setFoto(result.assets[0].uri)
-      const updatedErrors = { ...errors }
-      delete updatedErrors.Foto
-      setErrors(updatedErrors)
+  const handlePickImage = () => {
+    const options = {
+      mediaType: 'photo',
+      quality: 1
     }
+
+    launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker')
+      } else if (response.errorCode) {
+        console.log('ImagePicker Error: ', response.errorMessage)
+      } else {
+        const source = response.assets[0].uri ? { uri: response.assets[0].uri } : null
+        setFoto(source.uri)
+        const updatedErrors = { ...errors }
+        delete updatedErrors.Foto
+        setErrors(updatedErrors)
+      }
+    })
   }
 
   return (

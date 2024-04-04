@@ -1,99 +1,79 @@
-# BabySoft App  🍼📱
+This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-![BabySoft logo](./assets/babysoft-logo.png)
+# Getting Started
 
-Este proyecto presenta la implementación de un sistema de inicio de sesión (ingreso/registro) con diversas vistas y rutas protegidas. Además, incluye un completo CRUD de productos categorizados, utilizando React Native con [Expo](https://expo.dev/) y [Laravel Breeze API](https://laravel.com/docs/11.x/starter-kits#laravel-breeze).
+>**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## 📋 Requisitos previos
+## Step 1: Start the Metro Server
 
-1. Para comenzar, asegúrate de tener instalado [NodeJS](https://nodejs.org/en/download) para ejecutar el entorno de desarrollo.
+First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-2. Verifica también que tengas instalada o actualizada la línea de comandos de Expo CLI mediante el siguiente comando:
-
-    ```bash
-    npm i -g expo-cli
-    ```
-
-3. Asegúrate de tener la aplicación Expo instalada en tu dispositivo móvil desde la [Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent&pcampaignid=web_share) o desde la [Apps store](https://apps.apple.com/us/app/expo-go/id982107779) para poder previsualizar el servidor en tu celular.
-
-4. Para Laravel se requiere tener instalado [composer](https://getcomposer.org/download/).
-
-5. Opcionalmente tener instalado [Git](https://git-scm.com/downloads) para clonar el repositorio.
-
-## 🚀 Empezar con el proyecto
-
-### 🔹 Clona o descarga este repositorio
+To start Metro, run the following command from the _root_ of your React Native project:
 
 ```bash
-git clone https://github.com/soyluisarrieta/babysoft-app.git
+# using npm
+npm start
+
+# OR using Yarn
+yarn start
 ```
 
-### Pasos para configurar e iniciar la aplicación con Expo
+## Step 2: Start your Application
 
-1. #### Abrir una terminal dentro de la carpeta principal del proyecto
+Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-2. #### Instalar las dependencias utilizando el gestor de paquetes de Node.js
+### For Android
 
-    ```bash
-    npm install
-    ```
+```bash
+# using npm
+npm run android
 
-3. #### Iniciar el servidor local de la aplicación
+# OR using Yarn
+yarn android
+```
 
-    Para ejecutar el entorno de desarrollo de React Native con Expo, utiliza:
+### For iOS
 
-    ```bash
-    npm start
-    ```
+```bash
+# using npm
+npm run ios
 
-### 🔸 Pasos para configurar e iniciar la API de Laravel Breeze
+# OR using Yarn
+yarn ios
+```
 
-1. #### Abrir otra terminal dentro de la carpeta *API_BABYSOFT*
+If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-2. #### Instalar las dependencias utilizando el gestor de paquetes de Composer
+This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-    ```bash
-    composer install
-    ```
+## Step 3: Modifying your App
 
-3. #### Generar las variables de entorno ejecutando
+Now that you have successfully run the app, let's modify it.
 
-    ```bash
-    cp .env.example .env
-    ```
+1. Open `App.tsx` in your text editor of choice and edit some lines.
+2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
 
-4. #### Generar la clave de la aplicación
+   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
 
-    ```bash
-    php artisan key:generate
-    ```
+## Congratulations! :tada:
 
-5. #### Crear una base de datos en tu gestor de preferencia
-  
-    **⚠️ IMPORTANTE:** El nombre de la base de datos debe ser `babysoft_app` con cotejamiento `utf8_bin`. Si prefieres otro nombre, debes modificarlo en las variables de entorno.
+You've successfully run and modified your React Native App. :partying_face:
 
-6. Ejecutar las migraciones para crear las tablas:
+### Now what?
 
-    ```bash
-    php artisan migrate
-    ```
+- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
+- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
 
-    O si la base de datos ya existe y necesitas reiniciarla:
+# Troubleshooting
 
-    ```bash
-    php artisan migrate:refresh
-    ```
+If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
-7. Finalmente, ejecutar el servidor local
+# Learn More
 
-    ```bash
-    php artisan serve
-    ```
+To learn more about React Native, take a look at the following resources:
 
-## 🧩 Características generales
-
-- [x] Rutas públicas y privadas
-- [x] Sistema de Login simple (Ingreso/Registro)
-- [x] Autenticación y comunicación mediante Tokens
-- [ ] CRUD de productos
-- [ ] CRUD de categorías
+- [React Native Website](https://reactnative.dev) - learn more about React Native.
+- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
+- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
+- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
+- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.

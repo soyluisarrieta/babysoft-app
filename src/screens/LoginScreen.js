@@ -28,7 +28,7 @@ export default function LoginScreen () {
       const profile = await profileService()
       setProfile(profile)
     } catch (e) {
-      // console.warn(e.response)
+      console.warn(e.response.data)
       if (e.response?.status === 422) {
         setErrors(e.response.data.errors)
       }

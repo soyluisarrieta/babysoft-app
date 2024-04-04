@@ -7,10 +7,10 @@ export const COLORS = {
 
 export const FONTS = {
   primary: {
-    light: 'Quicksand-light',
-    regular: 'Quicksand-regular',
-    medium: 'Quicksand-medium',
-    semibold: 'Quicksand-semibold',
-    bold: 'Quicksand-bold'
+    light: 'Quicksand-Light',
+    regular: 'Quicksand-Regular',
+    medium: 'Quicksand-Medium',
+    semibold: 'Quicksand-SemiBold',
+    bold: 'Quicksand-Bold'
   }
 }

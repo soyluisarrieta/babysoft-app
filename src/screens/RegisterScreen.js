@@ -33,7 +33,7 @@ export default function RegisterScreen ({ navigation }) {
       setProfile(profile)
       navigation.replace('products')
     } catch (e) {
-      // console.warn(e.response)
+      console.warn(e.response)
       if (e.response?.status === 422) {
         setErrors(e.response.data.errors)
       }

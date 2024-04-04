@@ -1,31 +1,25 @@
 import { useEffect, useState } from 'react'
+import { Appearance } from 'react-native'
+import { profileService } from './src/services/AuthService'
+import SplashScreen from './src/screens/SplashScreen'
+import AuthContext from './src/contexts/AuthContext'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import LoginScreen from './src/screens/LoginScreen'
-import { profileService } from './src/services/AuthService'
-import AuthContext from './src/contexts/AuthContext'
-import SplashScreen from './src/screens/SplashScreen'
-import RegisterScreen from './src/screens/RegisterScreen'
-import HomeScreen from './src/screens/HomeScreen'
-import { useFonts } from 'expo-font'
 import { COLORS, FONTS } from './src/theme'
+import HomeScreen from './src/screens/HomeScreen'
+import LoginScreen from './src/screens/LoginScreen'
+import RegisterScreen from './src/screens/RegisterScreen'
 import ProductsScreen from './src/screens/Product/ProductsScreen'
-import EditProductScreen from './src/screens/Product/EditProductScreen'
 import CreateProductScreen from './src/screens/Product/CreateProductScreen'
+import EditProductScreen from './src/screens/Product/EditProductScreen'
 
 const Stack = createNativeStackNavigator()
 
 export default function App () {
-  const [fontsLoaded] = useFonts({
-    'Quicksand-light': require('./assets/fonts/Quicksand-Light.ttf'),
-    'Quicksand-regular': require('./assets/fonts/Quicksand-Regular.ttf'),
-    'Quicksand-medium': require('./assets/fonts/Quicksand-Medium.ttf'),
-    'Quicksand-semibold': require('./assets/fonts/Quicksand-SemiBold.ttf'),
-    'Quicksand-bold': require('./assets/fonts/Quicksand-Bold.ttf')
-  })
-
   const [profile, setProfile] = useState()
   const [status, setStatus] = useState('loading')
+
+  useEffect(() => Appearance.setColorScheme('light'), [])
 
   useEffect(() => {
     async function runEffect () {
@@ -43,7 +37,7 @@ export default function App () {
     runEffect()
   }, [])
 
-  if (status === 'loading' || !fontsLoaded) {
+  if (status === 'loading') {
     return <SplashScreen />
   }
 

@@ -1,4 +1,4 @@
-import * as SecureStore from 'expo-secure-store'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 let token = null
 
@@ -6,9 +6,9 @@ export async function setToken (newToken) {
   token = newToken
 
   if (token !== null) {
-    await SecureStore.setItemAsync('token', token)
+    await AsyncStorage.setItem('token', token)
   } else {
-    await SecureStore.deleteItemAsync('token')
+    await AsyncStorage.removeItem('token')
   }
 }
 
@@ -17,6 +17,6 @@ export async function getToken () {
     return token
   }
 
-  token = await SecureStore.getItemAsync('token')
+  token = await AsyncStorage.getItem('token')
   return token
 }

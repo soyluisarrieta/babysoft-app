@@ -1,31 +1,4 @@
 {
-  "expo": {
-    "name": "babysoft-app",
-    "slug": "babysoft-app",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/system-images/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/system-images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/system-images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.soyluisarrieta.babysoftapp"
-    },
-    "web": {
-      "favicon": "./assets/system-images/favicon.png"
-    }
-  }
+  "name": "babysoftApp",
+  "displayName": "babysoftApp"
 }
