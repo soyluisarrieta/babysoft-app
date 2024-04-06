@@ -27,13 +27,13 @@ Auth::routes();
 
 Route::get('venta/pdf', [VentaController::class, 'pdf'])->name('venta.pdf');
 
-Route::resource('clientes', App\Http\Controllers\clienteController::class)->middleware('can:Acceso a los Clientes');
-Route::resource('proveedores', App\Http\Controllers\proveedoreController::class)->middleware('can:Acceso a los Proveedores');
-Route::resource('productos', App\Http\Controllers\productoController::class)->middleware('can:Acceso a los Productos');
+Route::resource('clientes', App\Http\Controllers\ClienteController::class)->middleware('can:Acceso a los Clientes');
+Route::resource('proveedores', App\Http\Controllers\ProveedoreController::class)->middleware('can:Acceso a los Proveedores');
+Route::resource('productos', App\Http\Controllers\ProductoController::class)->middleware('can:Acceso a los Productos');
 Route::post('/nuevo-producto', [ProductoController::class, 'store']);
-Route::resource('productos', App\Http\Controllers\productoController::class)->middleware('can:Acceso a los Productos');
-Route::resource('compras', App\Http\Controllers\compraController::class)->middleware('can:Acceso a las Compras');
-Route::resource('ventas', App\Http\Controllers\ventaController::class)->middleware('can:Acceso a las Ventas');
+Route::resource('productos', App\Http\Controllers\ProductoController::class)->middleware('can:Acceso a los Productos');
+Route::resource('compras', App\Http\Controllers\CompraController::class)->middleware('can:Acceso a las Compras');
+Route::resource('ventas', App\Http\Controllers\VentaController::class)->middleware('can:Acceso a las Ventas');
 
 Route::resource('/roles', RoleController::class)->middleware('can:Acceso a la Configuración');
 
