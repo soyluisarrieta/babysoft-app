@@ -25,12 +25,21 @@
             @if (isset($errors) && $errors->has('idReferencia'))
                 <div class="invalid-feedback d-block">{{ $errors->first('idReferencia') }}</div>
             @endif
-            <br>
 
-            {{-- <div class="form-group mb-3">
-                {{ Form::label('Precio del Producto') }}
-                <label id="precioProductoLabel">$0</label>
-            </div> --}}
+            <div class="form-group mb-3" onkeypress="return validarNumero(event)">
+              {{ Form::label('Valor unitario') }}
+              <div class="row">
+                <div class="col pe-1">
+                {{ Form::number('precioUnitario', $detalleVenta->precioUnitario, ['id' => 'precioUnitario', 'placeholder'=> '0', 'min'=> '0','class' => 'form-control' . ($errors->has('precioUnitario') ? ' is-invalid' : ''), 'disabled']) }}
+                </div>
+                <button id="editarPrecio" type="button" class="btn btn-warning col-auto">
+                  <i id="iconoEditar" class="far fa-edit"></i>
+                </button>
+              </div>
+              {!! $errors->first('precioUnitario', '<div class="invalid-feedback">:message</div>') !!}
+            </div>
+
+            <br>
         </div>
         
         <div class="col-md">
@@ -239,6 +248,7 @@
             idCliente: idCliente,
             idReferencia: idReferencia,
             nombreProducto: nombreProducto,
+            precioUnitario: precioUnitario,
             Cantidad: Cantidad,
             Subtotal: Subtotal
         });
@@ -275,6 +285,7 @@
          // Reiniciar los campos específicos en lugar de todo el formulario
         $('#idReferencia').val('');
         $('#CantidadVenta').val(1);
+        $('#precioUnitario').val('');
         $('#Subtotal').val(0);
         $('#precioProductoLabel').text('$0');
     });
@@ -401,6 +412,59 @@
         $('#precioProductoLabel').text('$' + price.toFixed(0));
     });
 
+    // Precio unitario
+    $(document).ready(function(){
+      $('#idReferencia').change(function(){
+            var precio = $('option:selected', this).attr('data-precio');
+            $('#precioUnitario').val(precio);
+        });
+
+        $('#precioUnitario').on('input', function() {
+            let precioUnitario = $(this).val();
+            $('#idReferencia :selected').data('precio', precioUnitario);            
+            $('#idReferencia :selected').attr('data-precio', precioUnitario);
+
+            // Cuando se cambia el precio unitario, recalcula el subtotal y el valor total
+            let Cantidad = $('#CantidadVenta').val();
+            let Subtotal = precioUnitario * Cantidad;
+
+            $('#Subtotal').val(Subtotal.toFixed(0));
+
+            calcularValorTotal();
+        });
+
+        // Cuando se presiona el botón, habilita o deshabilita el input de precio unitario y cambia el ícono
+        $('#editarPrecio').click(function(){
+            let precioUnitarioInput = $('#precioUnitario');
+            let iconoEditar = $('#iconoEditar');
+            if (precioUnitarioInput.prop('disabled')) {
+                precioUnitarioInput.prop('disabled', false);
+                iconoEditar.removeClass('far fa-edit').addClass('fas fa-undo');
+                // Guarda el precio actual como un atributo de datos en el input
+                precioUnitarioInput.data('original', precioUnitarioInput.val());
+            } else {
+                precioUnitarioInput.prop('disabled', true);
+                iconoEditar.removeClass('fas fa-undo').addClass('far fa-edit');
+                // Reinicia el precio al valor original
+                let precioOriginal = precioUnitarioInput.data('original');
+                precioUnitarioInput.val(precioOriginal);
+                $('#idReferencia :selected').data('precio', precioOriginal);
+
+                // Recalcular el subtotal y el total
+                let Cantidad = $('#CantidadVenta').val();
+                let Subtotal = precioOriginal * Cantidad;
+                $('#Subtotal').val(Subtotal.toFixed(0));
+                calcularValorTotal();
+            }
+        });
+
+        // Cuando se agrega un detalle, deshabilita el input de precio unitario y cambia el ícono a editar
+        $('#agregarDetalle').click(function(){
+            $('#precioUnitario').prop('disabled', true);
+            $('#iconoEditar').removeClass('fas fa-undo').addClass('far fa-edit');
+        });
+    });
+    
 </script>
 
 

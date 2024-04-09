@@ -63,6 +63,7 @@ class CompraController extends Controller
       'ValorTotal' => 'required|numeric|min:0|max:9999999999',
       'Fecha' => 'required|date',
       'idReferencia' => ($request->input('detallesCompra') === null ? 'required' : 'nullable'). '|exists:productos,idReferencia', // Verifica si el idReferencia existe en la tabla productos
+      'precioUnitario' => 'nullable|integer|min:0|max:9999999999',
       'Cantidad' => ($request->input('idReferencia') === null ? 'nullable' : 'required'). '|integer|min:1|max:9999999999',
       'Subtotal' =>  ($request->input('Cantidad') === null ? 'nullable' : 'required'). '|numeric|min:0|max:9999999999',
       'detallesCompra' => [

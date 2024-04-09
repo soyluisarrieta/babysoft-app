@@ -63,6 +63,7 @@ class VentaController extends Controller
         'ValorTotal' => 'required|numeric|min:0|max:9999999999',
         'Fecha' => 'required|date',
         'idReferencia' => ($request->input('detallesVenta') === null ? 'required' : 'nullable'). '|exists:productos,idReferencia', 
+        'precioUnitario' => 'nullable|integer|min:0|max:9999999999',
         'Cantidad' => [
           ($request->input('idReferencia') === null ? 'nullable' : 'required'),
           'integer',
@@ -125,7 +126,7 @@ class VentaController extends Controller
       ]);
 
     try {
-      
+
       // Crear una nueva venta
       $venta = Venta::create([
         'idCliente' => $request->input('idCliente'),
