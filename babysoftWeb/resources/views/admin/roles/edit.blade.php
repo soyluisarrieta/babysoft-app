@@ -52,7 +52,10 @@
                                     {{ $permiso->name }}
                                 </div>
                             @endforeach
-                        </div>    
+                        </div> 
+                        @error('permisos')
+                          <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                        @enderror   
                         <br>
 
                         <div class="float-right">

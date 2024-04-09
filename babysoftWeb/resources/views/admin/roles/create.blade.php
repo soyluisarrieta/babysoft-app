@@ -44,14 +44,16 @@
 
                             <div class="row" >
                                 @foreach ($permisos as $permiso)
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 ">
                                         <input type="checkbox" name="permisos[]" value="{{ $permiso->id }}">
                                         {{ $permiso->name }}
                                     </div>
                                 @endforeach
                             </div>
+                              @error('permisos')
+                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                              @enderror
                             <br>
-
                             <div class="float-right">
                                 <a class="btn btn-primary" href="{{ route('roles.index') }}">
                                     <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver

@@ -34,11 +34,14 @@ class RoleController extends Controller
     public function store(Request $request)
     {
       $request->validate([
-          'name' => 'required|alpha|min:3|max:150|unique:roles,name',
-          'permisos' => 'required|array|exists:permissions,id',
+        'name' => 'required|alpha|min:3|max:150|unique:roles,name',
+        'permisos' => 'required|array|min:1|exists:permissions,id',
       ], [
-          'name.unique' => 'El nombre del rol ya está en uso.'
+          'name.unique' => 'El nombre del rol ya está en uso.',
+          'permisos.required' => 'Se requiere al menos un permiso.',
+          'permisos.min' => 'Se requiere al menos un permiso.',
       ]);
+        
       try {
           $role = Role::create($request->only('name'));
           
