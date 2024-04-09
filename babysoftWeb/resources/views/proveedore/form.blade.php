@@ -51,6 +51,7 @@
                 'class' => 'form-control' . ($errors->has('Fecha') ? ' is-invalid' : ''),
                 'placeholder' => 'Fecha',
                 'required',
+                'readonly',
                 'min' => now()->subDays(20)->format('Y-m-d'), // Restringe la fecha mínima 20 días en el pasado
                 'max' => now()->format('Y-m-d') // Restringe la fecha máxima a la fecha actual
             ]) }}
