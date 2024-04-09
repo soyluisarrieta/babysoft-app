@@ -36,6 +36,9 @@ class Compra extends Model
      */
     protected $fillable = ['idCompra','idProveedor','ValorTotal','Fecha'];
 
-
+    public function detalles_compra()
+    {
+        return $this->hasMany(DetalleCompra::class, 'idCompra');
+    }
 
 }

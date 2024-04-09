@@ -196,9 +196,21 @@ class VentaController extends Controller
   }
 
 
-
-
-
-
-
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Request $request, $id)
+    {
+      try {
+          $venta = Venta::findOrFail($id);
+          $venta->detalles_venta()->delete();
+          $venta->delete();
+          return redirect()->route('ventas.index')->with('success', '¡Venta y sus detalles eliminados con éxito!');
+      } catch (\Exception $e) {
+          $errorMessage = $e->getMessage();
+          return redirect()->route('ventas.index')->with('error', $errorMessage);
+      }
+    }
 }

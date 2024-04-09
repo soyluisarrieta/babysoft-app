@@ -166,4 +166,22 @@ class CompraController extends Controller
 
         return view('compra.show', compact('compra', 'proveedores', 'detalles_compra'));
     }
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Request $request, $id)
+    {
+      try {
+          $compra = Compra::findOrFail($id);
+          $compra->detalles_compra()->delete();
+          $compra->delete();
+          return redirect()->route('compras.index')->with('success', '¡Compra y sus detalles eliminados con éxito!');
+      } catch (\Exception $e) {
+          $errorMessage = $e->getMessage();
+          return redirect()->route('compras.index')->with('error', $errorMessage);
+      }
+    }
 }

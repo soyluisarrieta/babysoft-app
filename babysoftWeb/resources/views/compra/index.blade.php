@@ -57,10 +57,10 @@
                                             <td>
                                                 <form id="form" class="formulario-eliminar" action="{{ route('compras.destroy',$compra->idCompra) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('compras.show',$compra->idCompra) }}"><i class="fa fa-fw fa-eye"></i> {{ __('') }}</a>
-                                                    <!-- <a class="btn btn-sm btn-success" href="{{ route('compras.edit',$compra->idCompra) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                    <!-- <a class="btn btn-sm btn-success" href="{{ route('compras.edit',$compra->idCompra) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a> -->
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(event)"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button> -->
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(event)"><i class="fa fa-fw fa-trash"></i> {{ __('Anular') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

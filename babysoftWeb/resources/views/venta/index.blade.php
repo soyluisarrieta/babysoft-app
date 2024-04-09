@@ -67,13 +67,10 @@
                                             <td>
                                                 <form action="{{ route('ventas.destroy',$venta->idVenta) }}" class="formulario-eliminar" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('ventas.show',$venta->idVenta) }}"><i class="fa fa-fw fa-eye"></i> {{ __('') }}</a>
-                                                    <!-- <a class="btn btn-sm btn-success" href="{{ route('ventas.edit',$venta->idVenta) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                    <!-- <a class="btn btn-sm btn-success" href="{{ route('ventas.edit',$venta->idVenta) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a> -->
                                                     @csrf
                                                     @method('DELETE')
-                                                    
-                                                    @can('eliminar.ventas')
-                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(event)"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
-                                                    @endcan -->
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(event)"><i class="fa fa-fw fa-trash"></i> {{ __('Anular') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
