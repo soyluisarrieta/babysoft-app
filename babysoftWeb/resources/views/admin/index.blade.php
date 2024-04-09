@@ -82,26 +82,28 @@
 
     </div>
 
-    <div class="card">
-        <div class="card-body">
-            <canvas id="grafico-compra-y-ventas" height="350"></canvas>
+    <div class="row row-cols-1 row-cols-xl-2">
+      <div class="p-2">
+        <div class="card">
+            <br>
+            <br>
+            <h2 align="center">Últimas ventas y compras</h2>
+            <div class="card-body">
+                <canvas id="grafico-compra-y-ventas" height="360"></canvas>
+            </div>
         </div>
-    </div>
+      </div>
 
-    {{-- <div class="charts">
-        <br>
-        <br>
-        <h2 align="center">Ventas totales</h2>
-        <div>
-            <canvas id="grafico-ventas" height="300px"></canvas>
+      <div class="p-2">
+        <div class="card">
+            <br>
+            <br>
+            <h2 align="center">Productos más vendidos </h2>
+            <div>
+                <canvas id="grafico-top-ventas" height="400"></canvas>
+            </div>
         </div>
-
-        <h2 align="center">Stock de productos</h2>
-        <div>
-            <canvas id="grafico-productos" height="500px"></canvas>
-        </div>
-    </div> --}}
-
+      </div>
 @stop
 
 @section('css')
@@ -183,53 +185,55 @@
               }
           });
           return {
-              label: tipo,
-              backgroundColor: tipo === 'Ventas' ? 'rgba(60,141,188,0.9)' : 'rgba(210, 214, 222, 1)',
-              borderColor: tipo === 'Ventas' ? 'rgba(60,141,188,0.8)' : 'rgba(210, 214, 222, 1)',
-              pointColor: tipo === 'Ventas' ? '#3b8bba' : 'rgba(210, 214, 222, 1)',
-              pointStrokeColor: tipo === 'Ventas' ? 'rgba(60,141,188,1)' : '#c1c7d1',
-              pointHighlightFill: '#fff',
-              pointHighlightStroke: tipo === 'Ventas' ? 'rgba(60,141,188,1)' : 'rgba(220,220,220,1)',
-              data: datosPorDiaSemana
+            label: tipo,
+            backgroundColor: tipo === 'Ventas' ? 'rgba(40, 167, 69, 0.5)' : 'rgba(220, 53, 69, 0.5)', // Verde para ventas, Rojo para compras
+            borderColor: tipo === 'Ventas' ? 'rgba(40, 167, 69, 1)' : 'rgba(220, 53, 69, 1)', // Verde para ventas, Rojo para compras
+            borderWidth: 1,
+            data: datosPorDiaSemana
           };
       }
 
       // Configurar los datos para el gráfico
-      const chartData = {
-          labels: ultimos7Dias.map((fecha, index) => `${obtenerDiaSemanaTexto(fecha)}\n${fecha.toISOString().split('T')[0]}`),
-          datasets: [
-              obtenerDatosPorDiaSemana(ventas, 'Ventas'),
-              obtenerDatosPorDiaSemana(compras, 'Compras')
-          ]
-      };
+const chartData = {
+    labels: ultimos7Dias.map((fecha, index) => `${obtenerDiaSemanaTexto(fecha)}\n${fecha.toISOString().split('T')[0]}`),
+    datasets: [
+        obtenerDatosPorDiaSemana(ventas, 'Ventas'),
+        obtenerDatosPorDiaSemana(compras, 'Compras')
+    ]
+};
 
-      // Configurar opciones del gráfico
-      const chartOptions = {
-          maintainAspectRatio: false,
-          responsive: true,
-          scales: {
-              xAxes: [{
-                  ticks: {
-                      autoSkip: false, // Evitar que los días se corten
-                      maxRotation: 0, // Rotar la etiqueta del día
-                      callback: function(value, index, values) {
-                          // Dividir el texto en varias líneas
-                          return value.split('\n');
-                      }
-                  }
-              }]
-          }
-      };
+// Configurar opciones del gráfico
+const chartOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    scales: {
+        xAxes: [{
+            ticks: {
+                autoSkip: false, // Evitar que los días se corten
+                maxRotation: 0, // Rotar la etiqueta del día
+                callback: function(value, index, values) {
+                    // Dividir el texto en varias líneas
+                    return value.split('\n');
+                }
+            }
+        }],
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+};
 
-      // Obtener el contexto del canvas
-      const salesChartCanvas = document.getElementById('grafico-compra-y-ventas').getContext('2d');
+// Obtener el contexto del canvas
+const salesChartCanvas = document.getElementById('grafico-compra-y-ventas').getContext('2d');
 
-      // Inicializar el gráfico
-      const salesChart = new Chart(salesChartCanvas, {
-          type: 'line',
-          data: chartData,
-          options: chartOptions
-      });
+// Inicializar el gráfico
+const salesChart = new Chart(salesChartCanvas, {
+    type: 'bar', // Cambiar el tipo de gráfico de 'line' a 'bar'
+    data: chartData,
+    options: chartOptions
+});
     </script>
   
   
@@ -237,37 +241,14 @@
   
     {{-- Anteriores gráficos --}}
     <script>
-        /*
-            const ctx1 = document.getElementById('grafico-ventas');
-            new Chart(ctx1, {
-                type: 'pie',
-                data: {
-                    labels: @json($nombresProd1),
-                    datasets: [{
-                        data: @json($totalesVenta)
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: (value) => `Total: $${value.formattedValue}`
-                            }
-                        }
-                    }
-                }
-            });
-
-            const ctx2 = document.getElementById('grafico-productos');
+            const ctx2 = document.getElementById('grafico-top-ventas');
             new Chart(ctx2, {
                 type: 'bar',
                 data: {
-                    labels: @json($nombresProd2),
+                    labels: @json($nombresProd),
                     datasets: [{
-                        label: 'Cantidad',
-                        data: @json($cantidadesProd),
+                        label: 'Vendido',
+                        data: @json($totalesVenta),
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(255, 159, 64, 0.2)',
@@ -290,15 +271,22 @@
                     }]
                 },
                 options: {
+                    legend: { display: false },
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                    }
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                                if (parseInt(value) >= 1000) {
+                                    return '$'+value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' vendido.' ;
+                                } else {
+                                    return value;
+                                }
+                            }
+                        }
+                    },
                 }
             });
-            */
     </script>
 @stop

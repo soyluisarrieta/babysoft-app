@@ -26,32 +26,30 @@ class HomeController extends Controller
     $ventasRealizadas = $ventas->count();
 
     $productosConTotalVenta = Producto::select(
-      'productos.nombreProducto',
-      DB::raw('IFNULL(SUM(ventas.ValorTotal), 0) as totalVenta')
+        'productos.nombreProducto',
+        DB::raw('IFNULL(SUM(ventas.ValorTotal), 0) as totalVenta')
     )
-      ->leftJoin('detalle_ventas', 'productos.idReferencia', '=', 'detalle_ventas.idReferencia')
-      ->leftJoin('ventas', 'detalle_ventas.idVenta', '=', 'ventas.idVenta')
-      ->groupBy('productos.nombreProducto')
-      ->get();
+        ->leftJoin('detalle_ventas', 'productos.idReferencia', '=', 'detalle_ventas.idReferencia')
+        ->leftJoin('ventas', 'detalle_ventas.idVenta', '=', 'ventas.idVenta')
+        ->groupBy('productos.nombreProducto')
+        ->orderBy('totalVenta', 'asc') // Ordenar por total de ventas en orden descendente
+        ->take(10) // Limitar a los 10 productos más vendidos
+        ->get();
 
-    $nombresProd1 = $productosConTotalVenta->pluck('nombreProducto')->toArray();
+    $nombresProd = $productosConTotalVenta->pluck('nombreProducto')->toArray();
     $totalesVenta = $productosConTotalVenta->pluck('totalVenta')->toArray();
 
     // Productos
     $productos = Producto::all();
-    $nombresProd2 = $productos->pluck('nombreProducto')->toArray();
-    $cantidadesProd = $productos->pluck('Cantidad')->toArray();
     $productosEnStock = $productos->sum('Cantidad');
 
     return view('admin.index', compact(
-      'nombresProd1', 
+      'nombresProd', 
       'totalesVenta', 
       'ventas',
       'ventasRealizadas', 
       'compras',
       'comprasRealizadas', 
-      'nombresProd2', 
-      'cantidadesProd', 
       'productosEnStock'
     ));
   }
