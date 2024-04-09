@@ -51,7 +51,7 @@
                                         <tr>
                                             
                                             <td>{{ $compra->idCompra }}</td>
-											<td>{{ $compra->ValorTotal }}</td>
+											<td>${{ number_format($compra->ValorTotal, 0, ',', '.') }}</td>
 											<td>{{ $compra  ->Fecha }}</td>
 
                                             <td>

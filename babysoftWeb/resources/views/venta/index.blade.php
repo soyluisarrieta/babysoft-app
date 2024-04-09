@@ -61,7 +61,7 @@
                                             
 											<td>{{ $venta->idVenta }}</td>
 											<td>{{ $clientes[$venta->idCliente]  }}</td>
-											<td>{{ $venta->ValorTotal }}</td>
+											<td>${{ number_format($venta->ValorTotal, 0, ',', '.') }}</td>
 											<td>{{ $venta->Fecha }}</td>
 
                                             <td>

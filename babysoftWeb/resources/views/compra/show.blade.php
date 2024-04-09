@@ -47,11 +47,11 @@
                                 <div class="row align-items-center">
                                     <div class="col-7 h5 mt-1">{{ $detalle->producto->nombreProducto ?? 'Producto no encontrado' }}</div>
                                     <div class="col-2 h5 mt-1" align="center">{{ $detalle->Cantidad }}</div>
-                                    <div class="col h5 mt-1 justify-content-center" align="right">${{ $detalle->Subtotal }}</div>
+                                    <div class="col h5 mt-1 justify-content-center" align="right">${{ number_format($detalle->Subtotal, 0, ',', '.') }}</div>
                                 </div>
                             @endforeach
                             <div class="border-top mt-2 pt-2" align="right">
-                              <strong class="h4 text-bold">${{ $compra->ValorTotal }}<strong>
+                              <strong class="h4 text-bold">${{ number_format($compra->ValorTotal, 0, ',', '.') }}<strong>
                               <small class="text-muted d-block text-sm">Total Pago</small>
                             </div>
                         </div>

@@ -30,7 +30,7 @@
               {{ Form::label('Valor unitario') }}
               <div class="row">
                 <div class="col pe-1">
-                {{ Form::number('precioUnitario', $detalleVenta->precioUnitario, ['id' => 'precioUnitario', 'placeholder'=> '0', 'min'=> '0','class' => 'form-control' . ($errors->has('precioUnitario') ? ' is-invalid' : ''), 'disabled']) }}
+                {{ Form::number('precioUnitario', old('precioUnitario'), ['id' => 'precioUnitario', 'placeholder'=> '0', 'min'=> '0','class' => 'form-control' . ($errors->has('precioUnitario') ? ' is-invalid' : ''), 'disabled']) }}
                 </div>
                 <button id="editarPrecio" type="button" class="btn btn-warning col-auto">
                   <i id="iconoEditar" class="far fa-edit"></i>
@@ -102,7 +102,8 @@
 
           <div class="form-group" onkeypress="return validarNumero(event)" required>
               {{ Form::label('ValorTotal') }}
-              {{ Form::text('ValorTotal', $venta->ValorTotal ?? 0, ['id' => 'ValorTotal', 'readonly' => 'true', 'class' => 'form-control' . ($errors->has('ValorTotal') ? ' is-invalid' : '')]) }}
+              {{ Form::hidden('ValorTotal', $venta->ValorTotal ?? 0, ['id' => 'ValorTotal', 'readonly' => 'true', 'class' => 'form-control' . ($errors->has('ValorTotal') ? ' is-invalid' : '')]) }}
+              <div class="form-control bg-light font-weight-bold">$<span id="display-valorTotal">0</span></div>
               {!! $errors->first('ValorTotal', '<div class="invalid-feedback">:message</div>') !!}
           </div>
 
@@ -257,7 +258,7 @@
             <tr>
                 <td>${nombreProducto}</td>
                 <td>${Cantidad}</td>
-                <td>${Subtotal.toFixed(0)}</td>
+                <td>$${formatoMiles(Subtotal.toFixed(0))}</td>
                 <td><button class="btn eliminarProducto">X</button></td>
             </tr>
         `;
@@ -306,20 +307,21 @@
 
     // Función para calcular el valor total
     function calcularValorTotal() {
-    let valorTotal = 0;
+      let valorTotal = 0;
 
-    // Recorre los detalles y suma los subtotales
-    detallesVenta.forEach(detalle => {
-        valorTotal += detalle.Subtotal;
-    });
+      // Recorre los detalles y suma los subtotales
+      detallesVenta.forEach(detalle => {
+          valorTotal += detalle.Subtotal;
+      });
 
-    // Sumar el valor del Subtotal actual
-    let Subtotal = parseFloat($('#Subtotal').val());
-    valorTotal += Subtotal;
+      // Sumar el valor del Subtotal actual
+      let Subtotal = parseFloat($('#Subtotal').val());
+      valorTotal += Subtotal;
 
-    // Actualizar el campo ValorTotal
-    $('#ValorTotal').val(valorTotal.toFixed(0)); // Asegúrate de que el valor esté formateado correctamente
-}
+      // Actualizar el campo ValorTotal
+      $('#ValorTotal').val(valorTotal.toFixed(0)); // Asegúrate de que el valor esté formateado correctamente
+      $('#display-valorTotal').text(formatoMiles(valorTotal.toFixed(0)));
+    }
 
 
     $('#ventaForm').on('submit', function(e) {
@@ -397,13 +399,17 @@
             <tr>
               <td>${detalle.nombreProducto}</td>
               <td>${detalle.Cantidad}</td>
-              <td>${detalle.Subtotal.toFixed(0)}</td>
+              <td>$${formatoMiles(detalle.Subtotal.toFixed(0))}</td>
               <td><button class="btn eliminarProducto">X</button></td>
             </tr>
         `;
       });
 
       $('#tablaProductos tbody').append(detalleHTML);
+
+      var precio = $('option:selected', this).attr('data-precio');
+      $('#precioUnitario').val(precio);
+      calcularValorTotal()
     })
 
     $('#idReferencia').on('change', function() {
@@ -414,6 +420,12 @@
 
     // Precio unitario
     $(document).ready(function(){
+      if ("{{old('precioUnitario')}}") {
+        $('#precioUnitario').prop('disabled', false);
+        $('#iconoEditar').removeClass('far fa-edit').addClass('fas fa-undo');
+        $('#precioUnitario').val("{{old('precioUnitario')}}")
+      }
+      
       $('#idReferencia').change(function(){
             var precio = $('option:selected', this).attr('data-precio');
             $('#precioUnitario').val(precio);
@@ -522,5 +534,9 @@
         if (letras.indexOf(tecla) == -1 && !tecla_especial) {
             return false;
         }
+    }
+
+    function formatoMiles(numero) {
+      return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 </script>
