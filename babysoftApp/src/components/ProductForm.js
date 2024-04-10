@@ -5,7 +5,7 @@ import Button from './ui/Button'
 import { useNavigation } from '@react-navigation/native'
 import { launchImageLibrary } from 'react-native-image-picker'
 import ErrorBlock from './ui/ErrorBlock'
-import { rgba } from '../utils/helpers'
+import { onlyLetters, onlyNumbers, rgba } from '../utils/helpers'
 import { COLORS } from '../theme'
 import { API_URL } from '../utils/axios'
 
@@ -85,7 +85,7 @@ export default function ProductForm ({ product = {}, apiService }) {
       <InputField
         label='Nombre del producto'
         value={name}
-        onChangeText={(text) => setName(text)}
+        onChangeText={(text) => onlyLetters(text) && setName(text)}
         required
         errors={errors.nombreProducto}
       />
@@ -111,7 +111,7 @@ export default function ProductForm ({ product = {}, apiService }) {
         label='Cantidad'
         value={cantidad}
         numeric
-        onChangeText={(text) => setCantidad(text)}
+        onChangeText={(text) => onlyNumbers(text) && setCantidad(text)}
         placeholder='0'
         required
         errors={errors.Cantidad}
@@ -121,12 +121,12 @@ export default function ProductForm ({ product = {}, apiService }) {
           label='Precio'
           value={precio}
           numeric
-          onChangeText={(text) => setPrecio(text)}
+          onChangeText={(text) => onlyNumbers(text) && setPrecio(text)}
           errors={errors.Precio}
           required
           style={{ paddingLeft: 25 }}
         />
-        <Text style={{ position: 'absolute', top: 44, left: 15, opacity: 0.4 }}>$</Text>
+        <Text style={{ position: 'absolute', top: 49, left: 15, opacity: 0.4 }}>$</Text>
       </View>
       <View>
         <Label>Foto</Label>

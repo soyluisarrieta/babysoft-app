@@ -6,6 +6,7 @@ import AuthContext from '../contexts/AuthContext'
 import MasterLayout from '../components/layouts/MasterLayout'
 import Button from '../components/ui/Button'
 import { FONTS } from '../theme'
+import { onlyLetters } from '../utils/helpers'
 
 export default function RegisterScreen ({ navigation }) {
   const [name, setName] = useState('')
@@ -57,7 +58,7 @@ export default function RegisterScreen ({ navigation }) {
         <InputField
           label='Nombre y apellido'
           value={name}
-          onChangeText={(text) => setName(text)}
+          onChangeText={(text) => onlyLetters(text) && setName(text)}
           required
           errors={errors.name}
         />

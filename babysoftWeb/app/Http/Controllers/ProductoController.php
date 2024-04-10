@@ -59,9 +59,9 @@ class ProductoController extends Controller
           'idReferencia' => 'required|string|min:1|max:20|unique:productos,idReferencia',
           'nombreProducto' => 'required|string|min:3|max:30',
           'Talla' => 'required|string',
-          'Cantidad' => 'required|integer|max:999999999',
+          'Cantidad' => 'required|integer|min:1|max:999999999',
           'Categoria' => 'required|string',
-          'Precio' => 'required|integer|max:999999999',
+          'Precio' => 'required|integer|min:1|max:999999999',
           'Foto' => 'image|mimes:jpeg,png,jpg|max:1048' // Asegura que el archivo sea una imagen válida y no supere los 2MB
       ]);
 
