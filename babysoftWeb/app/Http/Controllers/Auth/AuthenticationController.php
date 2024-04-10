@@ -8,9 +8,11 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
+use Spatie\Permission\Models\Role;
 
 
 class AuthenticationController extends Controller
@@ -57,6 +59,10 @@ class AuthenticationController extends Controller
       'email' => $request->email,
       'password' => Hash::make($request->password),
     ]);
+
+    $idUser = $user->id;  // Obtienes el ID del usuario recién creado
+    $sql = "INSERT INTO model_has_roles (role_id, model_type, model_id) VALUES ('4', 'App\\\\Models\\\\User', :idUser)";
+    DB::insert($sql, ['idUser' => $idUser]);
 
     event(new Registered($user));
 

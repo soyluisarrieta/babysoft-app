@@ -316,7 +316,7 @@
 
             console.log("detallesCompra tiene datos");
 
-            let url = '{{ route('compras.store') }}';
+            let url = "{{ route('compras.store') }}";
 
             $.ajax({
                 url: url,
