@@ -86,6 +86,7 @@ export default function ProductForm ({ product = {}, apiService }) {
         label='Nombre del producto'
         value={name}
         onChangeText={(text) => setName(text)}
+        required
         errors={errors.nombreProducto}
       />
       <SelectField
@@ -94,6 +95,7 @@ export default function ProductForm ({ product = {}, apiService }) {
         selectedValue={categoria}
         onValueChange={(itemValue) => setCategoria(itemValue)}
         placeholder='Selecciona una categoría'
+        required
         errors={errors.Categoria}
       />
       <SelectField
@@ -102,6 +104,7 @@ export default function ProductForm ({ product = {}, apiService }) {
         selectedValue={talla}
         onValueChange={(itemValue) => setTalla(itemValue)}
         placeholder='Selecciona una talla'
+        required
         errors={errors.Talla}
       />
       <InputField
@@ -110,6 +113,7 @@ export default function ProductForm ({ product = {}, apiService }) {
         numeric
         onChangeText={(text) => setCantidad(text)}
         placeholder='0'
+        required
         errors={errors.Cantidad}
       />
       <View>
@@ -119,6 +123,7 @@ export default function ProductForm ({ product = {}, apiService }) {
           numeric
           onChangeText={(text) => setPrecio(text)}
           errors={errors.Precio}
+          required
           style={{ paddingLeft: 25 }}
         />
         <Text style={{ position: 'absolute', top: 44, left: 15, opacity: 0.4 }}>$</Text>

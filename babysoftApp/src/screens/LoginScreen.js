@@ -52,6 +52,7 @@ export default function LoginScreen () {
           label='Correo electrónico'
           value={email}
           onChangeText={(text) => setEmail(text)}
+          required
           errors={errors.email}
         />
         <InputField
@@ -59,6 +60,7 @@ export default function LoginScreen () {
           secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
+          required
           errors={errors.password}
         />
         <Button

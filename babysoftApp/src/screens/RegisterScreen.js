@@ -58,12 +58,14 @@ export default function RegisterScreen ({ navigation }) {
           label='Nombre y apellido'
           value={name}
           onChangeText={(text) => setName(text)}
+          required
           errors={errors.name}
         />
         <InputField
           label='Correo electrónico'
           value={email}
           onChangeText={(text) => setEmail(text)}
+          required
           errors={errors.email}
         />
         <InputField
@@ -71,6 +73,7 @@ export default function RegisterScreen ({ navigation }) {
           secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
+          required
           errors={errors.password}
         />
         <InputField
@@ -78,6 +81,7 @@ export default function RegisterScreen ({ navigation }) {
           secureTextEntry
           value={passwordConfirmation}
           onChangeText={(text) => setPasswordConfirmation(text)}
+          required
           errors={errors.password_confirmation}
         />
         <Button

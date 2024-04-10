@@ -1,7 +1,7 @@
 import axiosLib from 'axios'
 import { getToken } from '../services/TokenService'
 
-export const API_URL = 'http://192.168.1.105:8000/api'
+export const API_URL = 'https://soyluisarrieta.com/api'
 
 const axios = axiosLib.create({
   baseURL: API_URL,

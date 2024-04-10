@@ -13,12 +13,17 @@ export function Label ({ children }) {
   )
 }
 
-export function InputField ({ label, errors = [], value, numeric = false, style, ...rest }) {
+export function InputField ({ label, required, errors = [], value, numeric = false, style, ...rest }) {
   const [validationErrors, setValidationErrors] = useState([])
   useEffect(() => { setValidationErrors(errors) }, [errors.length])
   return (
     <View>
-      {label && <Label>{label}</Label>}
+      {label && (
+        <Label>
+          {required && <Text style={styles.asterisc}>* </Text>}
+          {label}
+        </Label>
+      )}
       <TextInput
         value={value && value.toString()}
         style={[styles.input, validationErrors.length && { borderWidth: 1.3, borderColor: rgba('255,0,0', 0.5) }, style]}
@@ -32,12 +37,17 @@ export function InputField ({ label, errors = [], value, numeric = false, style,
   )
 }
 
-export function SelectField ({ label, errors = [], arrayItems, selectedValue, onValueChange, placeholder, children, ...rest }) {
+export function SelectField ({ label, required, errors = [], arrayItems, selectedValue, onValueChange, placeholder, children, ...rest }) {
   const [validationErrors, setValidationErrors] = useState([])
   useEffect(() => { setValidationErrors(errors) }, [errors.length])
   return (
     <View>
-      {label && <Label>{label}</Label>}
+      {label && (
+        <Label>
+          {required && <Text style={styles.asterisc}>* </Text>}
+          {label}
+        </Label>
+      )}
       <View
         style={[
           styles.input,
@@ -79,6 +89,11 @@ const styles = StyleSheet.create({
     color: '#334155',
     fontFamily: FONTS.primary.semibold,
     fontSize: 17
+  },
+  asterisc: {
+    fontFamily: FONTS.primary.bold,
+    color: rgba('255, 0, 0', 0.7),
+    fontSize: 20
   },
   input: {
     backgroundColor: '#f1f5f9',
