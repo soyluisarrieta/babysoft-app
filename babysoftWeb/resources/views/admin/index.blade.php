@@ -219,7 +219,8 @@ const chartOptions = {
         }],
         yAxes: [{
             ticks: {
-                beginAtZero: true
+                beginAtZero: true,
+                stepSize: 1
             }
         }]
     }
