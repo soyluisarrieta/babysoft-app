@@ -56,6 +56,7 @@ CREATE TABLE `compras` (
   `idProveedor` bigint(20) NOT NULL,
   `ValorTotal` bigint(20) NOT NULL,
   `Fecha` date NOT NULL,
+  `Anulado` BOOLEAN NOT NULL DEFAULT FALSE,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -404,6 +405,7 @@ CREATE TABLE `ventas` (
   `idCliente` bigint(20) NOT NULL,
   `ValorTotal` bigint(20) NOT NULL,
   `Fecha` date NOT NULL,
+  `Anulado` BOOLEAN NOT NULL DEFAULT FALSE,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
