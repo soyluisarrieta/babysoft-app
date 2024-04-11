@@ -48,11 +48,11 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($compras as $compra)
-                                        <tr>
+                                        <tr @if($compra->Anulado) style="opacity: 0.7" @endif>
                                             
-                                            <td>{{ $compra->idCompra }}</td>
-											<td>${{ number_format($compra->ValorTotal, 0, ',', '.') }}</td>
-											<td>{{ $compra  ->Fecha }}</td>
+                                            <td @if($compra->Anulado) style="text-decoration: line-through;" @endif>{{ $compra->idCompra }}</td>
+                                            <td @if($compra->Anulado) style="text-decoration: line-through;" @endif>${{ number_format($compra->ValorTotal, 0, ',', '.') }}</td>
+                                            <td @if($compra->Anulado) style="text-decoration: line-through;" @endif>{{ $compra  ->Fecha }}</td>
 
                                             <td>
                                                 <form id="form" class="formulario-eliminar" action="{{ route('compras.destroy',$compra->idCompra) }}" method="POST">
@@ -60,7 +60,9 @@
                                                     <!-- <a class="btn btn-sm btn-success" href="{{ route('compras.edit',$compra->idCompra) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a> -->
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(event)"><i class="fa fa-fw fa-trash"></i> {{ __('Anular') }}</button>
+                                                    {!! !$compra->Anulado 
+                                                      ? '<button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(event)"><i class="fa fa-fw fa-trash"></i> ' . __('Anular') . '</button>' 
+                                                      : '<button type="button" disabled class="btn btn-secondary btn-sm"><i class="fa fa-fw fa-trash"></i> ' . __('Anulado') . '</button>' !!}
                                                 </form>
                                             </td>
                                         </tr>

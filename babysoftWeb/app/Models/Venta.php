@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $idCliente
  * @property $ValorTotal
  * @property $Fecha
+ * @property $Anulado
  * @property $created_at
  * @property $updated_at
  *
@@ -24,6 +25,7 @@ class Venta extends Model
 		'idCliente' => 'required',
 		'ValorTotal' => 'required',
 		'Fecha' => 'required',
+    'Anulado' => 'boolean',
     ];
 
     protected $perPage = 20;
@@ -33,7 +35,7 @@ class Venta extends Model
      *
      * @var array
      */
-    protected $fillable = ['idVenta','idCliente','ValorTotal','Fecha'];
+    protected $fillable = ['idVenta','idCliente','ValorTotal','Fecha', 'Anulado'];
 
     public function detalles_venta()
     {

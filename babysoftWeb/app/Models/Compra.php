@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $idProveedor
  * @property $ValorTotal
  * @property $Fecha
+ * @property $Anulado
  * @property $created_at
  * @property $updated_at
  *
@@ -25,6 +26,7 @@ class Compra extends Model
 		'idProveedor' => 'required',
 		'ValorTotal' => 'required',
 		'Fecha' => 'required',
+    'Anulado' => 'boolean',
     ];
 
     protected $perPage = 1000;
@@ -34,11 +36,10 @@ class Compra extends Model
      *
      * @var array
      */
-    protected $fillable = ['idCompra','idProveedor','ValorTotal','Fecha'];
+    protected $fillable = ['idCompra','idProveedor','ValorTotal','Fecha', 'Anulado'];
 
     public function detalles_compra()
     {
         return $this->hasMany(DetalleCompra::class, 'idCompra');
     }
-
 }

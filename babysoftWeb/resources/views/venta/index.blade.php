@@ -57,12 +57,12 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($ventas as $venta)
-                                        <tr>
+                                        <tr @if($venta->Anulado) style="opacity: 0.7" @endif>
                                             
-											<td>{{ $venta->idVenta }}</td>
-											<td>{{ $clientes[$venta->idCliente]  }}</td>
-											<td>${{ number_format($venta->ValorTotal, 0, ',', '.') }}</td>
-											<td>{{ $venta->Fecha }}</td>
+											<td @if($venta->Anulado) style="text-decoration: line-through;" @endif>{{ $venta->idVenta }}</td>
+											<td @if($venta->Anulado) style="text-decoration: line-through;" @endif>{{ $clientes[$venta->idCliente]  }}</td>
+											<td @if($venta->Anulado) style="text-decoration: line-through;" @endif>${{ number_format($venta->ValorTotal, 0, ',', '.') }}</td>
+											<td @if($venta->Anulado) style="text-decoration: line-through;" @endif>{{ $venta->Fecha }}</td>
 
                                             <td>
                                                 <form action="{{ route('ventas.destroy',$venta->idVenta) }}" class="formulario-eliminar" method="POST">
@@ -70,7 +70,9 @@
                                                     <!-- <a class="btn btn-sm btn-success" href="{{ route('ventas.edit',$venta->idVenta) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a> -->
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(event)"><i class="fa fa-fw fa-trash"></i> {{ __('Anular') }}</button>
+                                                    {!! !$venta->Anulado 
+    ? '<button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(event)"><i class="fa fa-fw fa-trash"></i> ' . __('Anular') . '</button>' 
+    : '<button type="button" disabled class="btn btn-secondary btn-sm"><i class="fa fa-fw fa-trash"></i> ' . __('Anulado') . '</button>' !!}
                                                 </form>
                                             </td>
                                         </tr>

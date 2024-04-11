@@ -205,10 +205,20 @@ class VentaController extends Controller
     public function destroy(Request $request, $id)
     {
       try {
-          $venta = Venta::findOrFail($id);
-          $venta->detalles_venta()->delete();
-          $venta->delete();
-          return redirect()->route('ventas.index')->with('success', '¡Venta y sus detalles eliminados con éxito!');
+        $venta = Venta::findOrFail($id);
+        $detalles_venta = DetalleVenta::where('idVenta', $id)->get();
+
+        $productController = new ProductoController();
+
+        foreach ($detalles_venta as $detalle) {
+            // Reestablecer el stock del producto
+            $productController->updateStock($detalle->idReferencia, $detalle->Cantidad, 'add');
+        }
+
+        $venta->Anulado = true;
+        $venta->save();
+
+        return redirect()->route('ventas.index')->with('success', '¡Venta anulada con éxito!');
       } catch (\Exception $e) {
           $errorMessage = $e->getMessage();
           return redirect()->route('ventas.index')->with('error', $errorMessage);

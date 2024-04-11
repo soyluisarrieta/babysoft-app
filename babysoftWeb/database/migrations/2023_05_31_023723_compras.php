@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('idCompra');
             $table->bigInteger('idProveedor');
             $table->bigInteger('ValorTotal');
+            $table->boolean('Anulado')->default(false);
             $table->date('Fecha')->useCurrent();
             $table->timestamps();
         });

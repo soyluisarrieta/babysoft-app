@@ -51,7 +51,10 @@
                                 </div>
                             @endforeach
                             <div class="border-top mt-2 pt-2" align="right">
-                              <strong class="h4 text-bold">${{ number_format($compra->ValorTotal, 0, ',', '.') }}<strong>
+                              <strong class="h4 text-bold">
+                                @if($compra->Anulado) <span class="badge badge-secondary" style="vertical-align: middle; font-size: 12px;">Anulado</span> @endif
+                                <span @if($compra->Anulado) style="text-decoration: line-through; opacity: 0.8;" @endif>${{ number_format($compra->ValorTotal, 0, ',', '.') }}</span>
+                              <strong>
                               <small class="text-muted d-block text-sm">Total Pago</small>
                             </div>
                         </div>

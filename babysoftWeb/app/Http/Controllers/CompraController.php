@@ -175,14 +175,22 @@ class CompraController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-      try {
-          $compra = Compra::findOrFail($id);
-          $compra->detalles_compra()->delete();
-          $compra->delete();
-          return redirect()->route('compras.index')->with('success', '¡Compra y sus detalles eliminados con éxito!');
-      } catch (\Exception $e) {
-          $errorMessage = $e->getMessage();
-          return redirect()->route('compras.index')->with('error', $errorMessage);
-      }
+        try {
+            $compra = Compra::findOrFail($id);
+            $detalles_compra = DetalleCompra::where('idCompra', $id)->get();
+    
+            $productController = new ProductoController();
+    
+            foreach ($detalles_compra as $detalle) {
+                // Reestablecer el stock del producto
+                $productController->updateStock($detalle->idReferencia, $detalle->Cantidad, 'subtract');
+            }
+            $compra->Anulado = true;
+            $compra->save();
+            return redirect()->route('compras.index')->with('success', '¡Compra anulada con éxito!');
+        } catch (\Exception $e) {
+            $errorMessage = $e->getMessage();
+            return redirect()->route('compras.index')->with('error', $errorMessage);
+        }
     }
 }
