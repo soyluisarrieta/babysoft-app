@@ -18,11 +18,11 @@ class HomeController extends Controller
   public function index()
   {
     // Compras
-    $compras = Compra::all();
+    $compras = Compra::where('Anulado', false)->get();
     $comprasRealizadas = $compras->count();
     
     // Ventas
-    $ventas = Venta::all();
+    $ventas = Venta::where('Anulado', false)->get();
     $ventasRealizadas = $ventas->count();
 
     $productosConTotalVenta = Producto::select(
