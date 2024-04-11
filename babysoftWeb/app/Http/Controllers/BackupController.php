@@ -11,7 +11,7 @@ class BackupController extends Controller
     public function createBackup()
     {
         try {
-            $backupPath = '../app/backup.sql';
+            $backupPath = 'backup.sql';
 
             MySql::create()
                 ->setDumpBinaryPath(env('DUMP_BINARY_PATH'))
@@ -20,10 +20,10 @@ class BackupController extends Controller
                 ->setPassword(env('DB_PASSWORD'))
                 ->dumpToFile(storage_path($backupPath));
 
-            return redirect()->back()->with('success', '¡Copia de seguridad creada con éxito!');
+            // Descargar el archivo
+            return response()->download(storage_path($backupPath));
         } catch (CannotStartDump $exception) {
             return redirect()->back()->with('error', 'Error al crear la copia de seguridad: ' . $exception->getMessage());
         }
     }
 }
-

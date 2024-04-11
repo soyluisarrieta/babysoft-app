@@ -41,12 +41,12 @@ CREATE TABLE `compras` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idCompra`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `compras` WRITE;
 /*!40000 ALTER TABLE `compras` DISABLE KEYS */;
-INSERT INTO `compras` VALUES (4,1,5000,'2024-03-04','2024-03-04 16:20:26','2024-03-04 16:20:26'),(5,2,30000,'2024-03-21','2024-03-21 22:16:48','2024-03-21 22:16:48'),(6,2,30000,'2024-03-21','2024-03-21 22:42:48','2024-03-21 22:42:48');
+INSERT INTO `compras` VALUES (4,1,5000,'2024-03-04','2024-03-04 16:20:26','2024-03-04 16:20:26'),(5,1,70000,'2024-04-11','2024-04-11 05:03:21','2024-04-11 05:03:21');
 /*!40000 ALTER TABLE `compras` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `detalle_compras`;
@@ -61,12 +61,12 @@ CREATE TABLE `detalle_compras` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idDetalleCompras`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `detalle_compras` WRITE;
 /*!40000 ALTER TABLE `detalle_compras` DISABLE KEYS */;
-INSERT INTO `detalle_compras` VALUES (4,4,'Z1F2W3T4',1,5000,'2024-03-04 16:20:26','2024-03-04 16:20:26'),(5,5,'Q1W2E3R4',1,10000,'2024-03-21 22:16:48','2024-03-21 22:16:48'),(6,5,'L1M2E3N4',1,15000,'2024-03-21 22:16:48','2024-03-21 22:16:48'),(7,5,'Z1F2W3T4',1,5000,'2024-03-21 22:16:48','2024-03-21 22:16:48'),(8,6,'Q1W2E3R4',1,10000,'2024-03-21 22:42:48','2024-03-21 22:42:48'),(9,6,'L1M2E3N4',1,15000,'2024-03-21 22:42:48','2024-03-21 22:42:48'),(10,6,'Z1F2W3T4',1,5000,'2024-03-21 22:42:48','2024-03-21 22:42:48');
+INSERT INTO `detalle_compras` VALUES (4,4,'Z1F2W3T4',1,5000,'2024-03-04 16:20:26','2024-03-04 16:20:26'),(5,5,'Q1W2E3R4',7,70000,'2024-04-11 05:03:21','2024-04-11 05:03:21');
 /*!40000 ALTER TABLE `detalle_compras` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `detalle_ventas`;
@@ -81,12 +81,12 @@ CREATE TABLE `detalle_ventas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idDetalleVentas`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `detalle_ventas` WRITE;
 /*!40000 ALTER TABLE `detalle_ventas` DISABLE KEYS */;
-INSERT INTO `detalle_ventas` VALUES (2,6,'Z1F2W3T4',1,5000,'2024-03-04 16:21:06','2024-03-04 16:21:06'),(3,7,'L1M2E3N4',1,15000,'2024-03-21 22:19:46','2024-03-21 22:19:46'),(4,8,'Z1F2W3T4',1,5000,'2024-03-21 22:43:49','2024-03-21 22:43:49');
+INSERT INTO `detalle_ventas` VALUES (2,6,'Z1F2W3T4',1,5000,'2024-03-04 16:21:06','2024-03-04 16:21:06');
 /*!40000 ALTER TABLE `detalle_ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `failed_jobs`;
@@ -157,7 +157,7 @@ CREATE TABLE `model_has_roles` (
 
 LOCK TABLES `model_has_roles` WRITE;
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
-INSERT INTO `model_has_roles` VALUES (1,'App\\Models\\User',1),(1,'App\\Models\\User',2),(1,'App\\Models\\User',4),(4,'App\\Models\\User',3),(4,'App\\Models\\User',5);
+INSERT INTO `model_has_roles` VALUES (1,'App\\Models\\User',1),(1,'App\\Models\\User',2),(1,'App\\Models\\User',4),(1,'App\\Models\\User',5),(4,'App\\Models\\User',3),(4,'App\\Models\\User',9);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `password_reset_tokens`;
@@ -226,11 +226,12 @@ CREATE TABLE `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `personal_access_tokens` WRITE;
 /*!40000 ALTER TABLE `personal_access_tokens` DISABLE KEYS */;
+INSERT INTO `personal_access_tokens` VALUES (1,'App\\Models\\User',9,'android 30','4401dad2a225039442e5ecd1b1b5d4fb967bcecaef8e16929b581d7d8a341ca2','[\"*\"]','2024-04-10 14:44:09',NULL,'2024-04-10 14:11:17','2024-04-10 14:44:09');
 /*!40000 ALTER TABLE `personal_access_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `productos`;
@@ -248,12 +249,12 @@ CREATE TABLE `productos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,'Q1W2E3R4','Pijama Millos','3-6 meses',22,'Pijamas',10000,'1709542831.jfif','2024-03-04 14:00:31','2024-03-21 22:42:48'),(2,'L1M2E3N4','Pijama Nacional','0-3 meses',21,'Pijamas',15000,'1709549365.jfif','2024-03-04 15:49:25','2024-03-21 22:42:48'),(3,'Z1F2W3T4','Pijama Junior','0-3 meses',21,'Pijamas',5000,'1709549422.PNG','2024-03-04 15:50:22','2024-03-21 22:43:49');
+INSERT INTO `productos` VALUES (1,'Q1W2E3R4','Pijama Millos','3-6 meses',27,'Pijamas',10000,'1709542831.jfif','2024-03-04 14:00:31','2024-04-11 05:03:21'),(2,'L1M2E3N4','Pijama Nacional','0-3 meses',20,'Pijamas',15000,'1709549365.jfif','2024-03-04 15:49:25','2024-03-04 15:49:25'),(3,'Z1F2W3T4','Pijama Junior','0-3 meses',20,'Pijamas',5000,'1709549422.PNG','2024-03-04 15:50:22','2024-03-04 16:21:06'),(4,'qweqwe','qweqwe','6-9 meses',0,'Conjunto',123123,NULL,'2024-04-10 14:17:23','2024-04-10 14:17:23');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `proveedores`;
@@ -269,12 +270,12 @@ CREATE TABLE `proveedores` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idProveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `proveedores` WRITE;
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
-INSERT INTO `proveedores` VALUES (1,1023852743,'Andrea Q','andrea@gmail.com',3216467823,'2024-03-21','2024-03-04 14:11:59','2024-03-21 21:45:22'),(2,1045076467,'PruebaMarzo','prueba@gmail.com',3214556576,'2024-03-21','2024-03-21 22:15:14','2024-03-21 22:15:51');
+INSERT INTO `proveedores` VALUES (1,1023852743,'Andrea','andrea@gmail.com',3216467823,'2024-03-04','2024-03-04 14:11:59','2024-03-04 14:11:59');
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `role_has_permissions`;
@@ -289,12 +290,12 @@ CREATE TABLE `role_has_permissions` (
   KEY `role_has_permissions_role_id_foreign` (`role_id`),
   CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `role_has_permissions` WRITE;
 /*!40000 ALTER TABLE `role_has_permissions` DISABLE KEYS */;
-INSERT INTO `role_has_permissions` VALUES (1,1,1),(3,2,1),(4,3,1),(5,4,1),(6,5,1),(7,6,1),(9,7,1),(11,1,4),(12,3,4),(13,7,4);
+INSERT INTO `role_has_permissions` VALUES (1,1,1),(3,2,1),(4,3,1),(5,4,1),(6,5,1),(7,6,1),(9,7,1),(11,1,4),(12,3,4);
 /*!40000 ALTER TABLE `role_has_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `roles`;
@@ -331,12 +332,12 @@ CREATE TABLE `users` (
   `isActived` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','admin@gmail.com',NULL,'$2y$10$xjt3gCj3rPdU2EQ4wB9SuudhvELwW23ZClqemi27a9MgUx21bB5FW','l1Z2QGSSAM0Po0tHtbP0IUOH8C9wnuJMbe8X8LOCRatOuYIiIx1PbDoLxPQc','2024-03-04 14:00:07','2024-03-04 15:09:59',1),(2,'Alexis','garcialex380@gmail.com',NULL,'$2y$10$Wug/MVwHLqhg0DKwun/fwexysYlWnr5HMhErE/DIJaAaWa4Y2xZya',NULL,'2024-03-04 14:00:07','2024-03-21 22:11:34',1),(3,'Jhon','jhon@gmail.com',NULL,'$2y$10$QFzandYjRH05YgvR6uIsgevsWxgzAYTIAwvUq8xumizozNfeKDrpy',NULL,'2024-03-04 15:21:32','2024-03-04 15:41:20',0),(5,'Juan Pablo Restrepo','goku@gmail.com',NULL,'$2y$10$gGW/jvBZPQ2HEbwO5RiHxelExNO.YOjFMMmy5hBhHv6Qoqaksrdqa',NULL,'2024-03-21 22:12:29','2024-03-21 22:41:19',1);
+INSERT INTO `users` VALUES (1,'Admin','admin@gmail.com',NULL,'$2y$10$xjt3gCj3rPdU2EQ4wB9SuudhvELwW23ZClqemi27a9MgUx21bB5FW','JgYIfZEwlAhrhi32AprqXYndE6a2FyObS2EsFJKifBh2kuIjS22Ul5a1qA5j','2024-03-04 14:00:07','2024-03-04 15:09:59',1),(2,'Alexis','garcialex380@gmail.com',NULL,'$2y$10$Wug/MVwHLqhg0DKwun/fwexysYlWnr5HMhErE/DIJaAaWa4Y2xZya',NULL,'2024-03-04 14:00:07','2024-03-04 15:41:03',1),(3,'Jhon','jhon@gmail.com',NULL,'$2y$10$QFzandYjRH05YgvR6uIsgevsWxgzAYTIAwvUq8xumizozNfeKDrpy',NULL,'2024-03-04 15:21:32','2024-03-04 15:41:20',0),(5,'Luis','luisarrieta796@gmail.com',NULL,'$2y$10$k4XReRY0vxiwbAT5BLJTJudxe2aZf23reXeSctXZgcbGbITNrBWku','','2024-03-04 14:00:07','2024-03-04 15:09:59',1),(6,'qweqwe','qweqwe@gmail.com',NULL,'$2y$10$QSMTuJpbwDwsCb8DzgEET.YF/sczUyIzKquuafV2I7L3.JaA57rwa',NULL,'2024-04-10 13:48:33','2024-04-10 13:48:33',1),(7,'qweqwe','qweqwe2@gmail.com',NULL,'$2y$10$hrL.SBPtKJjbXoV4kVbjPuGRyYMK8ONX6kto3zC6lrkQPcI/RRIFm',NULL,'2024-04-10 14:00:01','2024-04-10 14:00:01',1),(8,'qweqwe','qweqwe3@gmail.com',NULL,'$2y$10$akmIg1pOTfLXeLds8FBxM.eDaXMYoKslsq0IxdEUQANLGoZrqigne',NULL,'2024-04-10 14:05:15','2024-04-10 14:05:15',1),(9,'EMPLEADO','empleado@gmail.com',NULL,'$2y$10$xDjtDJP7PRsWBXRfLbU09.WsAh0WsYXyBAUCJu4qlrBKohTdOVYzK',NULL,'2024-04-10 14:11:17','2024-04-10 14:11:17',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `ventas`;
@@ -350,12 +351,12 @@ CREATE TABLE `ventas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idVenta`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-INSERT INTO `ventas` VALUES (6,1,5000,'2024-03-04','2024-03-04 16:21:06','2024-03-04 16:21:06'),(7,1,15000,'2024-03-21','2024-03-21 22:19:46','2024-03-21 22:19:46'),(8,1,5000,'2024-03-21','2024-03-21 22:43:49','2024-03-21 22:43:49');
+INSERT INTO `ventas` VALUES (6,1,5000,'2024-03-04','2024-03-04 16:21:06','2024-03-04 16:21:06');
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
